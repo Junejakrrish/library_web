@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ishan Book Store — A Gift For You</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700;900&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C8102E;
+    --red-dark: #9E0B23;
+    --red-light: #E8192E;
+    --cream: #FFF8F0;
+    --white: #FFFFFF;
+    --black: #1A1A1A;
+    --grey: #F5F5F5;
+    --grey-mid: #E0E0E0;
+    --grey-dark: #666666;
+    --text: #1A1A1A;
+    --text-mid: #555555;
+    --text-light: #999999;
+    --green: #2E7D32;
+    --green-light: #E8F5E9;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: "Lato", sans-serif;
+    background: var(--grey);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .page { display:none; min-height:100vh; flex-direction:column; }
+  .page.active { display:flex; }
+
+  /* ══ HEADER ══ */
+  .header {
+    background: var(--white);
+    border-bottom: 3px solid var(--red);
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .header-top {
+    background: var(--red);
+    padding: 6px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-top span {
+    font-size: 12px;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.3px;
+  }
+
+  .header-main {
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo-area {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo-name {
+    font-family: "Playfair Display", serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--red);
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
+
+  .logo-tagline {
+    font-size: 11px;
+    color: var(--grey-dark);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .paytech-pill {
+    background: var(--red);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 7px 16px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ══ NAV BAR ══ */
+  .nav-bar {
+    background: var(--black);
+    padding: 10px 40px;
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+
+  .nav-item {
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 4px 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .nav-item:hover, .nav-item.active {
+    color: var(--white);
+    border-color: var(--red);
+  }
+
+  /* ══ HERO BANNER ══ */
+  .hero-banner {
+    background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 60%, var(--red-light) 100%);
+    padding: 40px 40px 36px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.6s ease both;
+  }
+
+  .hero-banner::before {
+    content: "";
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .hero-banner::after {
+    content: "";
+    position: absolute;
+    right: 80px; bottom: -80px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .hero-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    position: relative; z-index:1;
+  }
+
+  .hero-title {
+    font-family: "Playfair Display", serif;
+    font-size: 38px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 10px;
+    position: relative; z-index:1;
+  }
+
+  .hero-title em { font-style: italic; font-weight: 400; }
+
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+    position: relative; z-index:1;
+    max-width: 500px;
+  }
+
+  /* ══ BREADCRUMB ══ */
+  .breadcrumb {
+    background: var(--white);
+    padding: 10px 40px;
+    font-size: 12px;
+    color: var(--grey-dark);
+    border-bottom: 1px solid var(--grey-mid);
+  }
+
+  .breadcrumb span { color: var(--red); cursor: pointer; }
+
+  /* ══ MAIN CONTENT ══ */
+  .main-content {
+    max-width: 960px;
+    margin: 28px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 28px;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  /* Book Image Panel */
+  .book-image-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .book-cover-card {
+    background: var(--white);
+    border: 1px solid var(--grey-mid);
+    border-radius: 4px;
+    padding: 28px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  .book-cover-img {
+    width: 180px;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 6px 6px 20px rgba(0,0,0,0.25), -2px 0 0 rgba(0,0,0,0.1);
+    display: block;
+    margin: 0 auto 16px;
+  }
+
+  .book-cover-caption {
+    font-size: 11px;
+    color: var(--text-light);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .stock-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--green-light);
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 3px;
+    margin-top: 10px;
+  }
+
+  .stock-dot {
+    width: 7px; height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+  }
+
+  /* Book Details Panel */
+  .book-details-panel {}
+
+  .book-card-main {
+    background: var(--white);
+    border: 1px solid var(--grey-mid);
+    border-radius: 4px;
+    padding: 28px 32px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+
+  .book-category {
+    font-size: 11px;
+    color: var(--red);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .book-title {
+    font-family: "Playfair Display", serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+
+  .book-author {
+    font-size: 14px;
+    color: var(--grey-dark);
+    margin-bottom: 16px;
+  }
+
+  .book-author strong { color: var(--red); }
+
+  /* Rating */
+  .rating-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--grey-mid);
+  }
+
+  .stars { color: #F5A623; font-size: 15px; letter-spacing: 1px; }
+
+  .rating-count {
+    font-size: 12px;
+    color: var(--grey-dark);
+  }
+
+  /* Price */
+  .price-section {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--grey-mid);
+  }
+
+  .price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 6px;
+  }
+
+  .price-original {
+    font-size: 15px;
+    color: var(--text-light);
+    text-decoration: line-through;
+  }
+
+  .price-free {
+    font-family: "Playfair Display", serif;
+    font-size: 34px;
+    font-weight: 900;
+    color: var(--red);
+  }
+
+  .price-tag {
+    font-size: 12px;
+    background: var(--red);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .price-note {
+    font-size: 12px;
+    color: var(--grey-dark);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* Description */
+  .book-desc {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.75;
+    margin-bottom: 24px;
+  }
+
+  /* Form */
+  .form-section {}
+
+  .form-row { margin-bottom: 14px; }
+
+  .form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .form-input {
+    width: 100%;
+    border: 1.5px solid var(--grey-mid);
+    border-radius: 3px;
+    padding: 12px 16px;
+    font-family: "Lato", sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    background: var(--white);
+  }
+
+  .form-input:focus { border-color: var(--red); }
+  .form-input::placeholder { color: #BBBBBB; }
+
+  .claim-btn {
+    width: 100%;
+    background: var(--red);
+    border: none;
+    border-radius: 3px;
+    padding: 16px;
+    color: var(--white);
+    font-family: "Lato", sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-top: 6px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .claim-btn::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transition: left 0.4s;
+  }
+
+  .claim-btn:hover::before { left: 100%; }
+  .claim-btn:hover { background: var(--red-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(200,16,46,0.35); }
+
+  .secure-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--grey-dark);
+    letter-spacing: 0.3px;
+  }
+
+  /* Trust badges */
+  .trust-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid var(--grey-mid);
+    border-radius: 3px;
+    padding: 6px 12px;
+    font-size: 11px;
+    color: var(--grey-dark);
+  }
+
+  /* ══ PAGE 2 — PROCESSING ══ */
+  #page-processing {
+    background: var(--grey);
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .proc-card {
+    background: var(--white);
+    border: 1px solid var(--grey-mid);
+    border-radius: 4px;
+    padding: 48px 40px;
+    max-width: 440px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    animation: popIn 0.5s ease both;
+  }
+
+  .proc-spinner {
+    width: 64px; height: 64px;
+    margin: 0 auto 24px;
+    position: relative;
+  }
+
+  .proc-spinner svg { width: 100%; height: 100%; animation: spin 1.4s linear infinite; }
+  .proc-spinner .track { fill:none; stroke: var(--grey-mid); stroke-width: 4; }
+  .proc-spinner .fill  { fill:none; stroke: var(--red); stroke-width: 4; stroke-linecap: round;
+    stroke-dasharray: 160; stroke-dashoffset: 40; animation: dashSpin 1.4s ease-in-out infinite; }
+
+  .proc-title {
+    font-family: "Playfair Display", serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .proc-sub {
+    font-size: 13px;
+    color: var(--grey-dark);
+    margin-bottom: 28px;
+  }
+
+  .proc-steps { text-align: left; }
+
+  .proc-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 3px;
+    margin-bottom: 6px;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: all 0.45s ease;
+    background: var(--grey);
+    border: 1px solid var(--grey-mid);
+  }
+
+  .proc-step.show { opacity: 1; transform: translateX(0); }
+  .proc-step.done { background: #FFF0F2; border-color: rgba(200,16,46,0.2); }
+
+  .proc-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--grey-mid); flex-shrink: 0;
+    transition: background 0.3s;
+  }
+
+  .proc-step.done .proc-dot { background: var(--red); }
+
+  .proc-text {
+    font-size: 13px;
+    color: var(--grey-dark);
+    transition: color 0.3s;
+  }
+
+  .proc-step.done .proc-text { color: var(--text); font-weight: 700; }
+
+  /* ══ PAGE 3 — SUCCESS ══ */
+  #page-success {
+    background: var(--grey);
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    position: relative;
+  }
+
+  #confetti-canvas {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 100;
+  }
+
+  .success-card {
+    background: var(--white);
+    border: 1px solid var(--grey-mid);
+    border-top: 4px solid var(--red);
+    border-radius: 4px;
+    padding: 40px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    position: relative; z-index: 2;
+    animation: popIn 0.55s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  .success-icon {
+    width: 72px; height: 72px;
+    background: var(--red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    margin: 0 auto 20px;
+    box-shadow: 0 0 0 8px rgba(200,16,46,0.12);
+    animation: pulse-red 2s ease infinite;
+  }
+
+  .success-label {
+    font-size: 11px;
+    color: var(--red);
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .success-title {
+    font-family: "Playfair Display", serif;
+    font-size: 30px;
+    font-weight: 900;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .success-title em { color: var(--red); font-style: italic; }
+
+  .success-sub {
+    font-size: 14px;
+    color: var(--grey-dark);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .receipt {
+    background: var(--grey);
+    border: 1px solid var(--grey-mid);
+    border-radius: 3px;
+    padding: 20px;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  .receipt-header {
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--red);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--grey-mid);
+  }
+
+  .receipt-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--grey-mid);
+  }
+
+  .receipt-row:last-child { border: none; }
+
+  .r-key {
+    font-size: 12px;
+    color: var(--grey-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .r-val {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 700;
+    text-align: right;
+    max-width: 55%;
+  }
+
+  .r-val.red { color: var(--red); font-family: "Playfair Display", serif; font-size: 15px; }
+  .r-val.green { color: var(--green); }
+
+  .paytech-quote {
+    background: #FFF0F2;
+    border-left: 4px solid var(--red);
+    padding: 16px 18px;
+    text-align: left;
+    border-radius: 0 3px 3px 0;
+    margin-bottom: 24px;
+  }
+
+  .paytech-quote p {
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .paytech-quote p strong { font-style: normal; color: var(--red); }
+
+  .delivery-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--red);
+    color: var(--white);
+    border-radius: 3px;
+    padding: 14px 28px;
+    font-weight: 900;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    animation: pulse-red 2s ease infinite;
+  }
+
+  /* ══ FOOTER ══ */
+  .footer {
+    background: var(--black);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+  }
+
+  .footer-logo {
+    font-family: "Playfair Display", serif;
+    font-size: 16px;
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .footer-logo span { color: var(--red); }
+
+  .footer-note {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.5px;
+  }
+
+  /* ══ ANIMATIONS ══ */
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes popIn  { from{opacity:0;transform:scale(0.88)} to{opacity:1;transform:scale(1)} }
+  @keyframes spin   { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+  @keyframes dashSpin { 0%{stroke-dashoffset:160} 50%{stroke-dashoffset:40} 100%{stroke-dashoffset:160} }
+  @keyframes pulse-red {
+    0%,100%{box-shadow:0 0 0 8px rgba(200,16,46,0.12)}
+    50%    {box-shadow:0 0 0 14px rgba(200,16,46,0.06)}
+  }
+
+  @media(max-width:700px){
+    .main-content{grid-template-columns:1fr}
+    .header-main,.hero-banner,.breadcrumb{padding-left:20px;padding-right:20px}
+    .nav-bar{padding:10px 20px; overflow-x:auto; gap:18px}
+    .footer{flex-direction:column;gap:10px;text-align:center}
+    .hero-title{font-size:26px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ PAGE 1 — STORE ══ -->
+<div id="page-store" class="page active">
+
+  <div class="header">
+    <div class="header-top">
+      <span>📚 Welcome to Ishan Book Store — Curated reads for curious minds</span>
+      <span>⚡ Powered by PayTech Infrastructure</span>
+    </div>
+    <div class="header-main">
+      <div class="logo-area">
+        <div class="logo-name">Ishan Book Store</div>
+        <div class="logo-tagline">Where Every Page Matters</div>
+      </div>
+      <div class="header-right">
+        <div class="paytech-pill">⚡ PayTech Powered</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-item active">Books</div>
+    <div class="nav-item">Stationery</div>
+    <div class="nav-item">Gift Cards</div>
+    <div class="nav-item">Best Sellers</div>
+    <div class="nav-item">New Arrivals</div>
+    <div class="nav-item">About</div>
+  </div>
+
+  <div class="hero-banner">
+    <div class="hero-label">✦ Featured Pick — Today Only</div>
+    <div class="hero-title">A book that changes<br><em>how you think.</em></div>
+    <div class="hero-sub">Hand-picked by our curators. Yours absolutely free — no strings, no catch.</div>
+  </div>
+
+  <div class="breadcrumb">
+    <span>Home</span> &rsaquo; <span>Books</span> &rsaquo; <span>Self-Help & Finance</span> &rsaquo; The Almanack of Naval Ravikant
+  </div>
+
+  <div class="main-content">
+
+    <!-- Left: Book Image -->
+    <div class="book-image-panel">
+      <div class="book-cover-card">
+        <img src="data:image/jpeg;base64,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" alt="The Almanack of Naval Ravikant" class="book-cover-img" />
+        <div class="book-cover-caption">Featured Book</div>
+        <div class="stock-badge">
+          <div class="stock-dot"></div>
+          In Stock — Limited Copies
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Details + Form -->
+    <div class="book-details-panel">
+      <div class="book-card-main">
+        <div class="book-category">Self-Help · Finance · Philosophy</div>
+        <div class="book-title">The Almanack of Naval Ravikant</div>
+        <div class="book-author">Compiled by <strong>Eric Jorgenson</strong> · Foreword by Tim Ferriss</div>
+
+        <div class="rating-row">
+          <div class="stars">★★★★★</div>
+          <div class="rating-count">4.9 / 5 &nbsp;·&nbsp; 12,400+ readers</div>
+        </div>
+
+        <div class="price-section">
+          <div class="price-row">
+            <div class="price-original">₹399</div>
+            <div class="price-free">FREE</div>
+            <div class="price-tag">100% OFF</div>
+          </div>
+          <div class="price-note">🎁 &nbsp; A gift from Ishan Book Store — powered by PayTech · Zero transaction fee · Zero MDR</div>
+        </div>
+
+        <div class="book-desc">
+          A guide to wealth and happiness distilled from Naval Ravikant's decades of writing, tweetstorms, and podcast interviews. This is the definitive collection of his wisdom on how to create wealth without getting lucky, and how to live a fulfilling life on your own terms.
+        </div>
+
+        <div class="form-section">
+          <div class="form-row">
+            <label class="form-label">Your Name</label>
+            <input id="user-name" class="form-input" type="text" placeholder="Enter your full name" />
+          </div>
+          <div class="form-row">
+            <label class="form-label">Email Address</label>
+            <input id="user-email" class="form-input" type="email" placeholder="your@email.com" />
+          </div>
+          <button class="claim-btn" onclick="startCheckout()">
+            🎁 &nbsp; Claim Your Free Gift Now
+          </button>
+          <div class="secure-strip">
+            🔒 &nbsp; 256-bit Secured &nbsp;·&nbsp; Zero MDR &nbsp;·&nbsp; Powered by UPI Infrastructure
+          </div>
+          <div class="trust-row">
+            <div class="trust-badge">✓ Free Delivery</div>
+            <div class="trust-badge">✓ No Hidden Charges</div>
+            <div class="trust-badge">✓ PayTech Secured</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-logo">Ishan <span>Book Store</span></div>
+    <div class="footer-note">© 2026 Ishan Book Store · Powered by PayTech · A PayTech Presentation Initiative</div>
+  </div>
+</div>
+
+
+<!-- ══ PAGE 2 — PROCESSING ══ -->
+<div id="page-processing" class="page">
+  <div class="proc-card">
+    <div class="proc-spinner">
+      <svg viewBox="0 0 64 64">
+        <circle class="track" cx="32" cy="32" r="26"/>
+        <circle class="fill"  cx="32" cy="32" r="26"/>
+      </svg>
+    </div>
+    <div class="proc-title">Processing Your Order</div>
+    <div class="proc-sub">Sit tight — this takes just a moment</div>
+    <div class="proc-steps" id="proc-steps">
+      <div class="proc-step"><div class="proc-dot"></div><div class="proc-text">Verifying your details</div></div>
+      <div class="proc-step"><div class="proc-dot"></div><div class="proc-text">Routing through PayTech infrastructure</div></div>
+      <div class="proc-step"><div class="proc-dot"></div><div class="proc-text">Applying Zero MDR — ₹0 transaction fee</div></div>
+      <div class="proc-step"><div class="proc-dot"></div><div class="proc-text">Confirming your gift allocation</div></div>
+      <div class="proc-step"><div class="proc-dot"></div><div class="proc-text">Payment complete ✓</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ PAGE 3 — SUCCESS ══ -->
+<div id="page-success" class="page">
+  <canvas id="confetti-canvas"></canvas>
+  <div class="success-card">
+    <div class="success-icon">✓</div>
+    <div class="success-label">Payment Successful</div>
+    <div class="success-title">Your gift is <em>here.</em></div>
+    <div class="success-sub">Look up — someone in this room is walking towards you right now.</div>
+
+    <div class="receipt">
+      <div class="receipt-header">🧾 &nbsp; Order Receipt — Ishan Book Store</div>
+      <div class="receipt-row">
+        <span class="r-key">Item</span>
+        <span class="r-val">The Almanack of Naval Ravikant</span>
+      </div>
+      <div class="receipt-row">
+        <span class="r-key">Customer</span>
+        <span class="r-val" id="receipt-name">—</span>
+      </div>
+      <div class="receipt-row">
+        <span class="r-key">Amount Charged</span>
+        <span class="r-val red">₹ 0.00</span>
+      </div>
+      <div class="receipt-row">
+        <span class="r-key">MDR</span>
+        <span class="r-val red">Zero</span>
+      </div>
+      <div class="receipt-row">
+        <span class="r-key">Powered By</span>
+        <span class="r-val">UPI · PayTech Infrastructure</span>
+      </div>
+      <div class="receipt-row">
+        <span class="r-key">Status</span>
+        <span class="r-val green">✓ COMPLETE</span>
+      </div>
+    </div>
+
+    <div class="paytech-quote">
+      <p>"The world's most advanced payment network delivered your gift for <strong>₹ 0.00.</strong> That's not magic — that's <strong>Indian PayTech.</strong>"</p>
+    </div>
+
+    <div class="delivery-badge">
+      🎁 &nbsp; Your Book Is Being Handed To You Now
+    </div>
+  </div>
+</div>
+
+
+<script>
+  function showPage(id){
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+    window.scrollTo(0,0);
+  }
+
+  function startCheckout(){
+    const name  = document.getElementById("user-name").value.trim();
+    const email = document.getElementById("user-email").value.trim();
+    if(!name){
+      const inp = document.getElementById("user-name");
+      inp.style.borderColor="var(--red)";
+      inp.focus();
+      setTimeout(()=>inp.style.borderColor="",2000);
+      return;
+    }
+    document.getElementById("receipt-name").textContent = name;
+    showPage("page-processing");
+
+    const steps = document.querySelectorAll(".proc-step");
+    steps.forEach((s,i)=>{
+      setTimeout(()=>{ s.classList.add("show"); setTimeout(()=>s.classList.add("done"),300); }, i*650);
+    });
+    setTimeout(()=>{ showPage("page-success"); launchConfetti(); }, steps.length*650+900);
+  }
+
+  function launchConfetti(){
+    const canvas = document.getElementById("confetti-canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const colors = ["#C8102E","#9E0B23","#FFFFFF","#F5A623","#1A1A1A","#E8192E"];
+    const pieces = Array.from({length:130},()=>({
+      x:Math.random()*canvas.width, y:-20,
+      r:Math.random()*6+3,
+      d:Math.random()*80+20,
+      color:colors[Math.floor(Math.random()*colors.length)],
+      tilt:Math.random()*10-10,
+      tiltAngle:0,
+      tiltInc:Math.random()*0.07+0.05,
+    }));
+    let frame=0;
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      pieces.forEach(p=>{
+        p.tiltAngle+=p.tiltInc;
+        p.y+=(Math.cos(frame*0.01+p.d)+3)*1.3;
+        p.x+=Math.sin(frame*0.01)*0.8;
+        p.tilt=Math.sin(p.tiltAngle)*12;
+        ctx.beginPath();
+        ctx.lineWidth=p.r/2;
+        ctx.strokeStyle=p.color;
+        ctx.moveTo(p.x+p.tilt+p.r/4,p.y);
+        ctx.lineTo(p.x+p.tilt,p.y+p.tilt+p.r/4);
+        ctx.stroke();
+      });
+      frame++;
+      if(frame<220) requestAnimationFrame(draw);
+      else ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+    draw();
+  }
+
+  window.addEventListener("resize",()=>{
+    const c=document.getElementById("confetti-canvas");
+    if(c){c.width=window.innerWidth;c.height=window.innerHeight;}
+  });
+</script>
+</body>
+</html>
