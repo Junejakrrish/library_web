@@ -3,16 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ishan Book Store — A Gift For You</title>
+<title>BookTech</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700;900&family=DM+Mono&display=swap" rel="stylesheet">
 <style>
   :root {
     --red: #C8102E;
     --red-dark: #9E0B23;
-    --red-light: #E8192E;
-    --cream: #FFF8F0;
     --white: #FFFFFF;
-    --black: #1A1A1A;
     --grey: #F5F5F5;
     --grey-mid: #E0E0E0;
     --grey-dark: #666666;
@@ -39,13 +36,13 @@
   .header {
     background: var(--white);
     border-bottom: 3px solid var(--red);
-    padding: 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    position: sticky; top: 0; z-index: 50;
   }
 
   .header-top {
     background: var(--red);
-    padding: 6px 40px;
+    padding: 7px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -53,62 +50,85 @@
 
   .header-top span {
     font-size: 12px;
-    color: rgba(255,255,255,0.85);
-    letter-spacing: 0.3px;
+    color: rgba(255,255,255,0.88);
   }
 
   .header-main {
-    padding: 16px 40px;
+    padding: 14px 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
   }
 
-  .logo-area {
-    display: flex;
-    flex-direction: column;
-  }
+  .logo-area { display:flex; flex-direction:column; }
 
   .logo-name {
     font-family: "Playfair Display", serif;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 900;
     color: var(--red);
-    letter-spacing: -0.5px;
     line-height: 1;
   }
 
   .logo-tagline {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--grey-dark);
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-top: 3px;
   }
 
-  .header-right {
+  .header-search {
+    flex: 1; max-width: 420px;
     display: flex;
-    align-items: center;
-    gap: 20px;
+    border: 1.5px solid var(--grey-mid);
+    border-radius: 3px;
+    overflow: hidden;
   }
 
-  .paytech-pill {
+  .header-search input {
+    flex:1; padding: 10px 16px;
+    font-family: "Lato", sans-serif;
+    font-size: 13px;
+    border: none; outline: none;
+    color: var(--text);
+  }
+
+  .header-search button {
     background: var(--red);
-    color: var(--white);
-    font-size: 11px;
-    font-weight: 700;
-    padding: 7px 16px;
-    border-radius: 20px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    border: none;
+    padding: 10px 18px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
   }
 
-  /* ══ NAV BAR ══ */
-  .nav-bar {
-    background: var(--black);
-    padding: 10px 40px;
+  .header-actions {
     display: flex;
-    gap: 28px;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .header-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 10px;
+    color: var(--grey-dark);
+    cursor: pointer;
+    gap: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .header-action span { font-size: 20px; }
+
+  .nav-bar {
+    background: var(--text);
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
     align-items: center;
   }
 
@@ -119,71 +139,60 @@
     letter-spacing: 1px;
     font-weight: 700;
     cursor: pointer;
-    padding: 4px 0;
-    border-bottom: 2px solid transparent;
+    padding: 12px 18px;
+    border-bottom: 3px solid transparent;
     transition: all 0.2s;
+    white-space: nowrap;
   }
 
   .nav-item:hover, .nav-item.active {
     color: var(--white);
     border-color: var(--red);
-  }
-
-  /* ══ HERO BANNER ══ */
-  .hero-banner {
-    background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 60%, var(--red-light) 100%);
-    padding: 40px 40px 36px;
-    position: relative;
-    overflow: hidden;
-    animation: fadeIn 0.6s ease both;
-  }
-
-  .hero-banner::before {
-    content: "";
-    position: absolute;
-    right: -60px; top: -60px;
-    width: 300px; height: 300px;
-    border-radius: 50%;
     background: rgba(255,255,255,0.05);
   }
 
-  .hero-banner::after {
-    content: "";
-    position: absolute;
-    right: 80px; bottom: -80px;
-    width: 200px; height: 200px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.04);
+  /* ══ PROMO BANNER ══ */
+  .promo-banner {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
   }
 
-  .hero-label {
-    font-size: 11px;
-    color: rgba(255,255,255,0.7);
+  .promo-text {}
+  .promo-tag {
+    font-size: 10px;
+    color: #F5A623;
     letter-spacing: 3px;
     text-transform: uppercase;
-    margin-bottom: 10px;
-    position: relative; z-index:1;
+    font-weight: 700;
+    margin-bottom: 6px;
   }
 
-  .hero-title {
+  .promo-title {
     font-family: "Playfair Display", serif;
-    font-size: 38px;
+    font-size: 28px;
     font-weight: 900;
     color: var(--white);
     line-height: 1.2;
-    margin-bottom: 10px;
-    position: relative; z-index:1;
   }
 
-  .hero-title em { font-style: italic; font-weight: 400; }
+  .promo-title em { color: #F5A623; font-style: italic; }
+  .promo-sub { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 6px; }
 
-  .hero-sub {
-    font-size: 15px;
-    color: rgba(255,255,255,0.75);
-    font-weight: 300;
-    position: relative; z-index:1;
-    max-width: 500px;
+  .promo-badge {
+    background: var(--red);
+    color: white;
+    padding: 14px 24px;
+    border-radius: 3px;
+    text-align: center;
+    flex-shrink: 0;
   }
+
+  .promo-badge .big { font-family: "Playfair Display", serif; font-size: 28px; font-weight: 900; display: block; }
+  .promo-badge .small { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
 
   /* ══ BREADCRUMB ══ */
   .breadcrumb {
@@ -194,50 +203,41 @@
     border-bottom: 1px solid var(--grey-mid);
   }
 
-  .breadcrumb span { color: var(--red); cursor: pointer; }
+  .breadcrumb a { color: var(--red); cursor: pointer; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
 
-  /* ══ MAIN CONTENT ══ */
+  /* ══ MAIN ══ */
   .main-content {
-    max-width: 960px;
-    margin: 28px auto;
+    max-width: 1100px;
+    margin: 24px auto;
     padding: 0 20px;
     display: grid;
-    grid-template-columns: 320px 1fr;
-    gap: 28px;
-    animation: fadeUp 0.7s 0.2s ease both;
+    grid-template-columns: 300px 1fr;
+    gap: 24px;
+    animation: fadeUp 0.6s ease both;
   }
 
-  /* Book Image Panel */
-  .book-image-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
+  /* ── LEFT PANEL ── */
+  .left-panel { display: flex; flex-direction: column; gap: 16px; }
 
   .book-cover-card {
     background: var(--white);
     border: 1px solid var(--grey-mid);
-    border-radius: 4px;
-    padding: 28px;
+    border-radius: 3px;
+    padding: 24px;
     text-align: center;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
 
   .book-cover-img {
-    width: 180px;
-    height: 240px;
-    object-fit: cover;
-    border-radius: 4px;
-    box-shadow: 6px 6px 20px rgba(0,0,0,0.25), -2px 0 0 rgba(0,0,0,0.1);
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    border-radius: 3px;
+    box-shadow: 5px 5px 18px rgba(0,0,0,0.22), -2px 0 0 rgba(0,0,0,0.08);
     display: block;
     margin: 0 auto 16px;
-  }
-
-  .book-cover-caption {
-    font-size: 11px;
-    color: var(--text-light);
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    background: #fff;
   }
 
   .stock-badge {
@@ -249,25 +249,90 @@
     font-size: 12px;
     font-weight: 700;
     padding: 6px 14px;
-    border-radius: 3px;
-    margin-top: 10px;
+    border-radius: 2px;
   }
 
-  .stock-dot {
-    width: 7px; height: 7px;
-    background: var(--green);
-    border-radius: 50%;
+  .stock-dot { width:7px; height:7px; background:var(--green); border-radius:50%; }
+
+  .share-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--grey-mid);
   }
 
-  /* Book Details Panel */
-  .book-details-panel {}
+  .share-btn {
+    font-size: 11px;
+    color: var(--grey-dark);
+    background: var(--grey);
+    border: 1px solid var(--grey-mid);
+    border-radius: 2px;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
 
-  .book-card-main {
+  .share-btn:hover { background: var(--grey-mid); }
+
+  /* Book details card */
+  .also-card {
     background: var(--white);
     border: 1px solid var(--grey-mid);
-    border-radius: 4px;
+    border-radius: 3px;
+    padding: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .also-title {
+    font-size: 12px;
+    font-weight: 900;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--red);
+    display: inline-block;
+  }
+
+  .also-item {
+    display: flex;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--grey-mid);
+    cursor: pointer;
+  }
+
+  .also-item:last-child { border: none; }
+
+  .also-thumb {
+    width: 36px; height: 48px;
+    background: var(--grey);
+    border: 1px solid var(--grey-mid);
+    border-radius: 2px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .also-info { flex: 1; }
+  .also-name { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.4; margin-bottom: 2px; }
+  .also-author { font-size: 11px; color: var(--grey-dark); }
+  .also-price { font-size: 12px; font-weight: 700; color: var(--red); margin-top: 2px; }
+
+  /* ── RIGHT PANEL ── */
+  .right-panel { display: flex; flex-direction: column; gap: 16px; }
+
+  .book-main-card {
+    background: var(--white);
+    border: 1px solid var(--grey-mid);
+    border-radius: 3px;
     padding: 28px 32px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
 
   .book-category {
@@ -281,37 +346,33 @@
 
   .book-title {
     font-family: "Playfair Display", serif;
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 700;
     color: var(--text);
-    line-height: 1.3;
+    line-height: 1.25;
     margin-bottom: 6px;
   }
 
   .book-author {
     font-size: 14px;
     color: var(--grey-dark);
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
-  .book-author strong { color: var(--red); }
+  .book-author a { color: var(--red); cursor: pointer; }
 
-  /* Rating */
   .rating-row {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
+    margin-bottom: 18px;
+    padding-bottom: 18px;
     border-bottom: 1px solid var(--grey-mid);
   }
 
-  .stars { color: #F5A623; font-size: 15px; letter-spacing: 1px; }
-
-  .rating-count {
-    font-size: 12px;
-    color: var(--grey-dark);
-  }
+  .stars { color: #F5A623; font-size: 14px; letter-spacing: 1px; }
+  .rating-count { font-size: 12px; color: var(--grey-dark); }
+  .rating-reviews { font-size: 12px; color: var(--red); cursor: pointer; }
 
   /* Price */
   .price-section {
@@ -323,138 +384,199 @@
   .price-row {
     display: flex;
     align-items: baseline;
-    gap: 14px;
-    margin-bottom: 6px;
+    gap: 12px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
   }
 
-  .price-original {
-    font-size: 15px;
-    color: var(--text-light);
-    text-decoration: line-through;
-  }
-
-  .price-free {
-    font-family: "Playfair Display", serif;
-    font-size: 34px;
-    font-weight: 900;
-    color: var(--red);
-  }
-
-  .price-tag {
-    font-size: 12px;
-    background: var(--red);
-    color: white;
-    padding: 3px 10px;
-    border-radius: 3px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-  }
+  .price-mrp { font-size: 13px; color: var(--grey-dark); }
+  .price-mrp span { text-decoration: line-through; }
+  .price-free { font-family: "Playfair Display", serif; font-size: 32px; font-weight: 900; color: var(--red); }
+  .price-save { font-size: 12px; background: #E8F5E9; color: var(--green); padding: 3px 10px; border-radius: 2px; font-weight: 700; }
 
   .price-note {
     font-size: 12px;
     color: var(--grey-dark);
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    line-height: 1.6;
+  }
+
+  .inaug-note {
+    display: inline-block;
+    background: #FFF8E1;
+    border: 1px solid #FFD54F;
+    border-radius: 2px;
+    padding: 8px 14px;
+    font-size: 12px;
+    color: #795548;
+    font-weight: 700;
+    margin-top: 8px;
   }
 
   /* Description */
   .book-desc {
     font-size: 14px;
     color: var(--text-mid);
-    line-height: 1.75;
-    margin-bottom: 24px;
+    line-height: 1.8;
+    margin-bottom: 22px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--grey-mid);
   }
 
-  /* Form */
-  .form-section {}
+  /* Book details list */
+  .book-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 20px;
+    margin-bottom: 22px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--grey-mid);
+  }
 
-  .form-row { margin-bottom: 14px; }
+  .meta-item { font-size: 12px; color: var(--grey-dark); }
+  .meta-item strong { color: var(--text); }
+
+  /* ══ PAYMENT SECTION ══ */
+  .payment-card {
+    background: var(--white);
+    border: 1px solid var(--grey-mid);
+    border-radius: 3px;
+    padding: 24px 32px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .payment-title {
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--red);
+    display: inline-block;
+  }
+
+  .customer-form { margin-bottom: 20px; }
+
+  .form-row { margin-bottom: 12px; }
 
   .form-label {
     display: block;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--text);
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
   }
 
   .form-input {
     width: 100%;
     border: 1.5px solid var(--grey-mid);
-    border-radius: 3px;
-    padding: 12px 16px;
+    border-radius: 2px;
+    padding: 10px 14px;
     font-family: "Lato", sans-serif;
     font-size: 14px;
     color: var(--text);
     outline: none;
     transition: border-color 0.2s;
-    background: var(--white);
   }
 
   .form-input:focus { border-color: var(--red); }
   .form-input::placeholder { color: #BBBBBB; }
 
-  .claim-btn {
-    width: 100%;
-    background: var(--red);
-    border: none;
-    border-radius: 3px;
-    padding: 16px;
-    color: var(--white);
-    font-family: "Lato", sans-serif;
-    font-size: 16px;
-    font-weight: 900;
-    letter-spacing: 1px;
+  .pay-methods-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
     text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+
+  .pay-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .pay-btn {
+    border: 1.5px solid var(--grey-mid);
+    border-radius: 4px;
+    padding: 14px 12px;
+    background: var(--white);
     cursor: pointer;
-    transition: all 0.25s;
-    margin-top: 6px;
+    transition: all 0.22s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
     position: relative;
     overflow: hidden;
   }
 
-  .claim-btn::before {
+  .pay-btn::before {
     content: "";
     position: absolute;
-    top: 0; left: -100%; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-    transition: left 0.4s;
+    inset: 0;
+    background: var(--red);
+    opacity: 0;
+    transition: opacity 0.2s;
   }
 
-  .claim-btn:hover::before { left: 100%; }
-  .claim-btn:hover { background: var(--red-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(200,16,46,0.35); }
+  .pay-btn:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 4px 14px rgba(200,16,46,0.15); }
+  .pay-btn:hover::before { opacity: 0.03; }
+  .pay-btn:active { transform: scale(0.97); }
+
+  .pay-logo {
+    font-size: 22px;
+    position: relative; z-index: 1;
+  }
+
+  .pay-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    position: relative; z-index: 1;
+  }
+
+  .pay-sub {
+    font-size: 10px;
+    color: var(--grey-dark);
+    position: relative; z-index: 1;
+  }
+
+  /* PhonePe specific */
+  .pay-btn.phonepe { border-color: #5f259f22; }
+  .pay-btn.phonepe:hover { border-color: #5f259f; box-shadow: 0 4px 14px rgba(95,37,159,0.15); }
+  .pay-btn.phonepe .pay-name { color: #5f259f; }
+
+  /* GPay */
+  .pay-btn.gpay { border-color: #4285F422; }
+  .pay-btn.gpay:hover { border-color: #4285F4; box-shadow: 0 4px 14px rgba(66,133,244,0.15); }
+  .pay-btn.gpay .pay-name { color: #4285F4; }
+
+  /* Debit */
+  .pay-btn.debit:hover { border-color: var(--red); }
+  .pay-btn.debit .pay-name { color: var(--text); }
+
+  /* Net Banking */
+  .pay-btn.netbank { border-color: #00800022; }
+  .pay-btn.netbank:hover { border-color: #006400; box-shadow: 0 4px 14px rgba(0,100,0,0.12); }
+  .pay-btn.netbank .pay-name { color: #006400; }
 
   .secure-strip {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-    margin-top: 12px;
     font-size: 11px;
     color: var(--grey-dark);
-    letter-spacing: 0.3px;
-  }
-
-  /* Trust badges */
-  .trust-row {
-    display: flex;
-    gap: 10px;
-    margin-top: 16px;
-    flex-wrap: wrap;
-  }
-
-  .trust-badge {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    background: var(--grey);
     border: 1px solid var(--grey-mid);
-    border-radius: 3px;
-    padding: 6px 12px;
-    font-size: 11px;
-    color: var(--grey-dark);
+    border-radius: 2px;
+    padding: 8px;
   }
 
   /* ══ PAGE 2 — PROCESSING ══ */
@@ -463,79 +585,59 @@
     align-items: center;
     justify-content: center;
     padding: 40px 20px;
+    min-height: 100vh;
   }
 
   .proc-card {
     background: var(--white);
     border: 1px solid var(--grey-mid);
-    border-radius: 4px;
-    padding: 48px 40px;
-    max-width: 440px;
+    border-top: 4px solid var(--red);
+    border-radius: 3px;
+    padding: 44px 40px;
+    max-width: 420px;
     width: 100%;
     text-align: center;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    animation: popIn 0.5s ease both;
+    animation: popIn 0.4s ease both;
+  }
+
+  .proc-payment-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+    display: block;
   }
 
   .proc-spinner {
-    width: 64px; height: 64px;
-    margin: 0 auto 24px;
+    width: 56px; height: 56px;
+    margin: 0 auto 20px;
     position: relative;
   }
 
-  .proc-spinner svg { width: 100%; height: 100%; animation: spin 1.4s linear infinite; }
-  .proc-spinner .track { fill:none; stroke: var(--grey-mid); stroke-width: 4; }
-  .proc-spinner .fill  { fill:none; stroke: var(--red); stroke-width: 4; stroke-linecap: round;
-    stroke-dasharray: 160; stroke-dashoffset: 40; animation: dashSpin 1.4s ease-in-out infinite; }
+  .proc-spinner svg { width:100%; height:100%; animation: spin 1.4s linear infinite; }
+  .proc-spinner .track { fill:none; stroke:var(--grey-mid); stroke-width:4; }
+  .proc-spinner .fill  { fill:none; stroke:var(--red); stroke-width:4; stroke-linecap:round;
+    stroke-dasharray:160; stroke-dashoffset:40; animation:dashSpin 1.4s ease-in-out infinite; }
 
-  .proc-title {
-    font-family: "Playfair Display", serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
+  .proc-title { font-family:"Playfair Display",serif; font-size:22px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .proc-via { font-size:13px; color:var(--grey-dark); margin-bottom:24px; }
 
-  .proc-sub {
-    font-size: 13px;
-    color: var(--grey-dark);
-    margin-bottom: 28px;
-  }
-
-  .proc-steps { text-align: left; }
+  .proc-steps { text-align:left; }
 
   .proc-step {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    border-radius: 3px;
-    margin-bottom: 6px;
-    opacity: 0;
-    transform: translateX(-16px);
-    transition: all 0.45s ease;
-    background: var(--grey);
-    border: 1px solid var(--grey-mid);
+    display:flex; align-items:center; gap:12px;
+    padding:10px 14px; border-radius:2px; margin-bottom:6px;
+    opacity:0; transform:translateX(-16px);
+    transition:all 0.45s ease;
+    background:var(--grey); border:1px solid var(--grey-mid);
   }
 
-  .proc-step.show { opacity: 1; transform: translateX(0); }
-  .proc-step.done { background: #FFF0F2; border-color: rgba(200,16,46,0.2); }
+  .proc-step.show { opacity:1; transform:translateX(0); }
+  .proc-step.done { background:#E8F5E9; border-color:rgba(46,125,50,0.2); }
 
-  .proc-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--grey-mid); flex-shrink: 0;
-    transition: background 0.3s;
-  }
-
-  .proc-step.done .proc-dot { background: var(--red); }
-
-  .proc-text {
-    font-size: 13px;
-    color: var(--grey-dark);
-    transition: color 0.3s;
-  }
-
-  .proc-step.done .proc-text { color: var(--text); font-weight: 700; }
+  .proc-dot { width:8px; height:8px; border-radius:50%; background:var(--grey-mid); flex-shrink:0; transition:background 0.3s; }
+  .proc-step.done .proc-dot { background:var(--green); }
+  .proc-text { font-size:13px; color:var(--grey-dark); transition:color 0.3s; }
+  .proc-step.done .proc-text { color:var(--text); font-weight:700; }
 
   /* ══ PAGE 3 — SUCCESS ══ */
   #page-success {
@@ -544,208 +646,751 @@
     justify-content: center;
     padding: 40px 20px;
     position: relative;
+    min-height: 100vh;
   }
 
-  #confetti-canvas {
-    position: fixed; inset: 0;
-    pointer-events: none; z-index: 100;
-  }
+  #confetti-canvas { position:fixed; inset:0; pointer-events:none; z-index:100; }
 
   .success-card {
     background: var(--white);
     border: 1px solid var(--grey-mid);
-    border-top: 4px solid var(--red);
-    border-radius: 4px;
+    border-top: 4px solid var(--green);
+    border-radius: 3px;
     padding: 40px;
-    max-width: 480px;
+    max-width: 460px;
     width: 100%;
     text-align: center;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
     position: relative; z-index: 2;
-    animation: popIn 0.55s cubic-bezier(0.34,1.56,0.64,1) both;
+    animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
   }
 
   .success-icon {
-    width: 72px; height: 72px;
-    background: var(--red);
+    width: 68px; height: 68px;
+    background: var(--green);
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
-    margin: 0 auto 20px;
-    box-shadow: 0 0 0 8px rgba(200,16,46,0.12);
-    animation: pulse-red 2s ease infinite;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; color: white;
+    margin: 0 auto 18px;
+    box-shadow: 0 0 0 8px rgba(46,125,50,0.12);
+    animation: pulse-green 2s ease infinite;
   }
 
-  .success-label {
-    font-size: 11px;
-    color: var(--red);
-    font-weight: 900;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
+  .success-label { font-size:11px; color:var(--green); font-weight:900; letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
 
-  .success-title {
-    font-family: "Playfair Display", serif;
-    font-size: 30px;
-    font-weight: 900;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
+  .success-title { font-family:"Playfair Display",serif; font-size:28px; font-weight:900; color:var(--text); margin-bottom:6px; }
 
-  .success-title em { color: var(--red); font-style: italic; }
-
-  .success-sub {
-    font-size: 14px;
-    color: var(--grey-dark);
-    margin-bottom: 28px;
-    line-height: 1.6;
-  }
+  .success-sub { font-size:14px; color:var(--grey-dark); margin-bottom:24px; line-height:1.6; font-style:italic; }
 
   .receipt {
     background: var(--grey);
     border: 1px solid var(--grey-mid);
-    border-radius: 3px;
+    border-radius: 2px;
     padding: 20px;
     text-align: left;
     margin-bottom: 20px;
   }
 
   .receipt-header {
-    font-size: 11px;
-    font-weight: 900;
-    color: var(--red);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--grey-mid);
+    font-size: 11px; font-weight:900; color:var(--text);
+    letter-spacing:2px; text-transform:uppercase;
+    margin-bottom:12px; padding-bottom:10px;
+    border-bottom:1px solid var(--grey-mid);
+    display: flex; justify-content: space-between; align-items: center;
   }
 
-  .receipt-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 0;
-    border-bottom: 1px dashed var(--grey-mid);
-  }
+  .receipt-id { font-family:"DM Mono",monospace; font-size:10px; color:var(--grey-dark); }
 
-  .receipt-row:last-child { border: none; }
-
-  .r-key {
-    font-size: 12px;
-    color: var(--grey-dark);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .r-val {
-    font-size: 13px;
-    color: var(--text);
-    font-weight: 700;
-    text-align: right;
-    max-width: 55%;
-  }
-
-  .r-val.red { color: var(--red); font-family: "Playfair Display", serif; font-size: 15px; }
-  .r-val.green { color: var(--green); }
-
-  .paytech-quote {
-    background: #FFF0F2;
-    border-left: 4px solid var(--red);
-    padding: 16px 18px;
-    text-align: left;
-    border-radius: 0 3px 3px 0;
-    margin-bottom: 24px;
-  }
-
-  .paytech-quote p {
-    font-family: "Playfair Display", serif;
-    font-style: italic;
-    font-size: 14px;
-    color: var(--text);
-    line-height: 1.7;
-  }
-
-  .paytech-quote p strong { font-style: normal; color: var(--red); }
+  .receipt-row { display:flex; justify-content:space-between; padding:7px 0; border-bottom:1px dashed var(--grey-mid); }
+  .receipt-row:last-child { border:none; }
+  .r-key { font-size:12px; color:var(--grey-dark); }
+  .r-val { font-size:13px; color:var(--text); font-weight:700; text-align:right; max-width:55%; }
+  .r-val.free { color:var(--green); font-family:"Playfair Display",serif; font-size:15px; }
+  .r-val.success { color:var(--green); }
 
   .delivery-badge {
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     background: var(--red);
     color: var(--white);
     border-radius: 3px;
-    padding: 14px 28px;
+    padding: 16px 28px;
     font-weight: 900;
     font-size: 15px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
     animation: pulse-red 2s ease infinite;
   }
 
   /* ══ FOOTER ══ */
   .footer {
-    background: var(--black);
-    padding: 20px 40px;
+    background: var(--text);
+    padding: 16px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: auto;
   }
 
-  .footer-logo {
-    font-family: "Playfair Display", serif;
-    font-size: 16px;
-    color: var(--white);
-    font-weight: 700;
-  }
+  .footer-logo { font-family:"Playfair Display",serif; font-size:16px; color:var(--white); font-weight:700; }
+  .footer-logo span { color:var(--red); }
+  .footer-links { display:flex; gap:20px; }
+  .footer-link { font-size:11px; color:rgba(255,255,255,0.45); cursor:pointer; }
+  .footer-link:hover { color:rgba(255,255,255,0.8); }
 
-  .footer-logo span { color: var(--red); }
-
-  .footer-note {
-    font-size: 11px;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 0.5px;
-  }
-
-  /* ══ ANIMATIONS ══ */
-  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
-  @keyframes popIn  { from{opacity:0;transform:scale(0.88)} to{opacity:1;transform:scale(1)} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes popIn  { from{opacity:0;transform:scale(0.9)} to{opacity:1;transform:scale(1)} }
   @keyframes spin   { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
   @keyframes dashSpin { 0%{stroke-dashoffset:160} 50%{stroke-dashoffset:40} 100%{stroke-dashoffset:160} }
+  @keyframes pulse-green {
+    0%,100%{box-shadow:0 0 0 8px rgba(46,125,50,0.12)}
+    50%    {box-shadow:0 0 0 14px rgba(46,125,50,0.06)}
+  }
   @keyframes pulse-red {
-    0%,100%{box-shadow:0 0 0 8px rgba(200,16,46,0.12)}
-    50%    {box-shadow:0 0 0 14px rgba(200,16,46,0.06)}
+    0%,100%{box-shadow:0 0 0 6px rgba(200,16,46,0.15)}
+    50%    {box-shadow:0 0 0 12px rgba(200,16,46,0.06)}
   }
 
   @media(max-width:700px){
     .main-content{grid-template-columns:1fr}
-    .header-main,.hero-banner,.breadcrumb{padding-left:20px;padding-right:20px}
-    .nav-bar{padding:10px 20px; overflow-x:auto; gap:18px}
+    .header-main,.promo-banner,.breadcrumb{padding-left:16px;padding-right:16px}
+    .nav-bar{padding:0 16px; overflow-x:auto}
     .footer{flex-direction:column;gap:10px;text-align:center}
-    .hero-title{font-size:26px}
+    .pay-grid{grid-template-columns:1fr 1fr}
+    .header-search{display:none}
+  }
+
+  /* ══ UPI MODAL ══ */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.show { display: flex; }
+
+  .upi-modal {
+    background: var(--white);
+    border-radius: 6px;
+    border-top: 4px solid var(--red);
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+    overflow: hidden;
+  }
+
+  .upi-modal-header {
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid var(--grey-mid);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--grey);
+  }
+
+  .upi-modal-title { display: flex; align-items: center; gap: 12px; }
+  .upi-app-icon { font-size: 30px; }
+  .upi-app-name { font-family: "Playfair Display", serif; font-size: 18px; font-weight: 700; color: var(--text); }
+  .upi-app-sub { font-size: 11px; color: var(--grey-dark); margin-top: 2px; }
+
+  .modal-close {
+    font-size: 18px; color: var(--grey-dark);
+    cursor: pointer; padding: 6px 10px;
+    border-radius: 3px; transition: background 0.2s;
+    line-height: 1;
+  }
+  .modal-close:hover { background: var(--grey-mid); color: var(--text); }
+
+  .upi-modal-body { padding: 22px 24px; }
+
+  .upi-amount-box {
+    background: var(--green-light);
+    border: 1px solid rgba(46,125,50,0.25);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .upi-amount-label { font-size: 11px; color: var(--green); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; width: 100%; }
+  .upi-amount-val { font-family: "Playfair Display", serif; font-size: 26px; font-weight: 900; color: var(--green); }
+  .upi-amount-free { font-size: 11px; color: var(--green); font-weight: 700; }
+
+  .upi-divider { height: 1px; background: var(--grey-mid); margin-bottom: 18px; }
+
+  .upi-input-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .upi-phone-wrap {
+    display: flex;
+    border: 2px solid var(--grey-mid);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    transition: border-color 0.25s;
+  }
+
+  .upi-phone-wrap:focus-within { border-color: var(--red); }
+  .upi-phone-wrap.valid { border-color: var(--green); }
+
+  .upi-country-code {
+    background: var(--grey);
+    border-right: 2px solid var(--grey-mid);
+    padding: 13px 14px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .upi-phone-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 13px 14px;
+    font-family: "DM Mono", monospace;
+    font-size: 18px;
+    color: var(--text);
+    letter-spacing: 2px;
+    background: var(--white);
+  }
+
+  .upi-phone-input::placeholder {
+    font-family: "Lato", sans-serif;
+    font-size: 13px;
+    color: #BBBBBB;
+    letter-spacing: 0;
+  }
+
+  .upi-hint {
+    font-size: 11px;
+    color: var(--grey-dark);
+    margin-bottom: 20px;
+    line-height: 1.5;
+    transition: color 0.3s;
+  }
+
+  .upi-hint.valid { color: var(--green); font-weight: 700; }
+  .upi-hint.error { color: var(--red); font-weight: 700; }
+
+  .upi-pay-btn {
+    width: 100%;
+    background: var(--grey-mid);
+    border: none;
+    border-radius: 4px;
+    padding: 15px;
+    color: var(--grey-dark);
+    font-family: "Lato", sans-serif;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    cursor: not-allowed;
+    transition: all 0.3s;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .upi-pay-btn.active {
+    background: var(--green);
+    color: var(--white);
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(46,125,50,0.3);
+  }
+
+  .upi-pay-btn.active:hover {
+    background: #1B5E20;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(46,125,50,0.4);
+  }
+
+  .upi-pay-btn.active::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    transition: left 0.5s;
+  }
+
+  .upi-pay-btn.active:hover::before { left: 100%; }
+
+  .upi-secure {
+    text-align: center;
+    font-size: 11px;
+    color: var(--grey-dark);
+    letter-spacing: 0.3px;
+  }
+
+  /* ══ DEBIT & NETBANK MODALS ══ */
+  .modal-overlay2 {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay2.show { display: flex; }
+
+  .pay-modal {
+    background: var(--white);
+    border-radius: 6px;
+    border-top: 4px solid var(--red);
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.28);
+    animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+    overflow: hidden;
+  }
+
+  .pay-modal-header {
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid var(--grey-mid);
+    background: var(--grey);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .pay-modal-title { display: flex; align-items: center; gap: 12px; }
+  .pay-modal-icon { font-size: 28px; }
+  .pay-modal-name { font-family: "Playfair Display", serif; font-size: 18px; font-weight: 700; color: var(--text); }
+  .pay-modal-sub { font-size: 11px; color: var(--grey-dark); margin-top: 2px; }
+
+  .pay-modal-body { padding: 22px 24px; }
+
+  .pay-amount-box {
+    background: var(--green-light);
+    border: 1px solid rgba(46,125,50,0.2);
+    border-radius: 4px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .pay-amount-left {}
+  .pay-amount-lbl { font-size: 10px; color: var(--green); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .pay-amount-num { font-family: "Playfair Display", serif; font-size: 24px; font-weight: 900; color: var(--green); }
+  .pay-amount-free { font-size: 10px; color: var(--green); font-weight: 700; }
+
+  /* ── CARD DISPLAY ── */
+  .card-visual {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+
+  .card-visual::before {
+    content: "";
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .card-visual::after {
+    content: "";
+    position: absolute;
+    bottom: -30px; left: -20px;
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .card-chip { font-size: 22px; margin-bottom: 14px; display: block; }
+
+  .card-number-display {
+    font-family: "DM Mono", monospace;
+    font-size: 17px;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 4px;
+    margin-bottom: 14px;
+    display: flex;
+    gap: 12px;
+  }
+
+  .card-number-display span { color: rgba(255,255,255,0.4); }
+
+  .card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .card-label { font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+  .card-val { font-size: 13px; color: rgba(255,255,255,0.85); font-weight: 700; font-family: "DM Mono", monospace; }
+  .card-network { font-size: 28px; }
+
+  /* ── CARD INPUTS ── */
+  .card-input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .card-field { display: flex; flex-direction: column; gap: 5px; }
+
+  .card-field-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .card-field-input {
+    border: 1.5px solid var(--grey-mid);
+    border-radius: 3px;
+    padding: 10px 12px;
+    font-family: "DM Mono", monospace;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    letter-spacing: 1px;
+  }
+
+  .card-field-input:focus { border-color: var(--red); }
+  .card-field-input::placeholder { font-family: "Lato", sans-serif; font-size: 12px; color: #BBBBBB; letter-spacing: 0; }
+
+  .card-hint {
+    font-size: 11px;
+    color: var(--grey-dark);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* ── BANK OPTIONS ── */
+  .bank-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .bank-option {
+    border: 2px solid var(--grey-mid);
+    border-radius: 6px;
+    padding: 14px 12px;
+    cursor: pointer;
+    transition: all 0.22s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    background: var(--white);
+    position: relative;
+  }
+
+  .bank-option:hover { border-color: var(--red); transform: translateY(-2px); box-shadow: 0 4px 14px rgba(200,16,46,0.12); }
+
+  .bank-option.selected {
+    border-color: var(--green);
+    background: var(--green-light);
+    box-shadow: 0 4px 14px rgba(46,125,50,0.15);
+  }
+
+  .bank-option.selected::after {
+    content: "✓";
+    position: absolute;
+    top: 6px; right: 8px;
+    font-size: 11px;
+    color: var(--green);
+    font-weight: 900;
+  }
+
+  .bank-logo { font-size: 26px; }
+  .bank-name { font-size: 11px; font-weight: 700; color: var(--text); text-align: center; line-height: 1.3; }
+  .bank-type { font-size: 9px; color: var(--grey-dark); text-align: center; }
+
+  /* ── SHARED PAY BTN ── */
+  .modal-pay-btn {
+    width: 100%;
+    background: var(--grey-mid);
+    border: none;
+    border-radius: 4px;
+    padding: 15px;
+    color: var(--grey-dark);
+    font-family: "Lato", sans-serif;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    cursor: not-allowed;
+    transition: all 0.3s;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .modal-pay-btn.active {
+    background: var(--green);
+    color: var(--white);
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(46,125,50,0.3);
+  }
+
+  .modal-pay-btn.active:hover {
+    background: #1B5E20;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(46,125,50,0.4);
+  }
+
+  .modal-pay-btn.active::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    transition: left 0.5s;
+  }
+
+  .modal-pay-btn.active:hover::before { left: 100%; }
+
+  .modal-secure {
+    text-align: center;
+    font-size: 11px;
+    color: var(--grey-dark);
+    letter-spacing: 0.3px;
+  }
+
+  /* ══ OTP MODAL ══ */
+  .modal-overlay3 {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(5px);
+  }
+  .modal-overlay3.show { display: flex; }
+
+  .otp-modal {
+    background: var(--white);
+    border-radius: 6px;
+    border-top: 4px solid var(--red);
+    width: 100%;
+    max-width: 370px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+    overflow: hidden;
+  }
+
+  .otp-modal-header {
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid var(--grey-mid);
+    background: var(--grey);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .otp-modal-icon { font-size: 26px; }
+  .otp-modal-name { font-family: "Playfair Display", serif; font-size: 17px; font-weight: 700; color: var(--text); }
+  .otp-modal-sub { font-size: 11px; color: var(--grey-dark); margin-top: 2px; }
+
+  .otp-modal-body { padding: 24px; }
+
+  .otp-sent-msg {
+    background: #E3F2FD;
+    border: 1px solid #90CAF9;
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #1565C0;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .otp-sent-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  .otp-via-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--grey);
+    border: 1px solid var(--grey-mid);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 18px;
+  }
+
+  .otp-input-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .otp-boxes {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    justify-content: center;
+  }
+
+  .otp-box {
+    width: 58px; height: 64px;
+    border: 2px solid var(--grey-mid);
+    border-radius: 8px;
+    font-family: "DM Mono", monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+    outline: none;
+    transition: all 0.2s;
+    background: var(--white);
+  }
+
+  .otp-box:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(200,16,46,0.1); }
+  .otp-box.filled { border-color: var(--green); background: var(--green-light); color: var(--green); }
+  .otp-box.wrong  { border-color: var(--red); background: #FFF0F2; animation: shake 0.4s ease; }
+
+  .otp-hint {
+    font-size: 11px;
+    color: var(--grey-dark);
+    text-align: center;
+    margin-bottom: 18px;
+    font-style: italic;
+  }
+
+  .hint-otp {
+    font-family: "DM Mono", monospace;
+    font-weight: 700;
+    color: var(--red);
+    font-style: normal;
+    background: #FFF0F2;
+    padding: 2px 8px;
+    border-radius: 3px;
+    border: 1px dashed var(--red);
+    letter-spacing: 3px;
+  }
+
+  .otp-resend {
+    text-align: center;
+    font-size: 12px;
+    color: var(--grey-dark);
+    margin-bottom: 16px;
+  }
+
+  .otp-resend span { color: var(--red); cursor: pointer; font-weight: 700; text-decoration: underline; }
+
+  .otp-verify-btn {
+    width: 100%;
+    background: var(--grey-mid);
+    border: none;
+    border-radius: 4px;
+    padding: 15px;
+    color: var(--grey-dark);
+    font-family: "Lato", sans-serif;
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    cursor: not-allowed;
+    transition: all 0.3s;
+    margin-bottom: 12px;
+    position: relative; overflow: hidden;
+  }
+
+  .otp-verify-btn.active {
+    background: var(--green);
+    color: var(--white);
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(46,125,50,0.3);
+  }
+
+  .otp-verify-btn.active:hover {
+    background: #1B5E20;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(46,125,50,0.4);
+  }
+
+  .otp-verify-btn.active::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    transition: left 0.5s;
+  }
+
+  .otp-verify-btn.active:hover::before { left: 100%; }
+
+  .otp-secure { text-align: center; font-size: 11px; color: var(--grey-dark); }
+
+  @keyframes shake {
+    0%,100%{transform:translateX(0)}
+    20%{transform:translateX(-8px)}
+    40%{transform:translateX(8px)}
+    60%{transform:translateX(-5px)}
+    80%{transform:translateX(5px)}
   }
 </style>
 </head>
 <body>
 
-<!-- ══ PAGE 1 — STORE ══ -->
+<!-- ══ PAGE 1 ══ -->
 <div id="page-store" class="page active">
 
   <div class="header">
     <div class="header-top">
-      <span>📚 Welcome to Ishan Book Store — Curated reads for curious minds</span>
-      <span>⚡ Powered by PayTech Infrastructure</span>
+      <span>Free shipping on orders above ₹499 &nbsp;|&nbsp; New arrivals every Monday</span>
+      <span>📞 Customer Care: 1800-123-4567</span>
     </div>
     <div class="header-main">
       <div class="logo-area">
-        <div class="logo-name">Ishan Book Store</div>
+        <div class="logo-name">BookTech</div>
         <div class="logo-tagline">Where Every Page Matters</div>
       </div>
-      <div class="header-right">
-        <div class="paytech-pill">⚡ PayTech Powered</div>
+      <div class="header-search">
+        <input type="text" placeholder="Search books, authors, ISBN..." />
+        <button>🔍</button>
+      </div>
+      <div class="header-actions">
+        <div class="header-action"><span>🔖</span>Wishlist</div>
+        <div class="header-action"><span>👤</span>Account</div>
+        <div class="header-action"><span>🛒</span>Cart (1)</div>
       </div>
     </div>
   </div>
@@ -756,86 +1401,162 @@
     <div class="nav-item">Gift Cards</div>
     <div class="nav-item">Best Sellers</div>
     <div class="nav-item">New Arrivals</div>
-    <div class="nav-item">About</div>
+    <div class="nav-item">Authors</div>
+    <div class="nav-item">Offers</div>
   </div>
 
-  <div class="hero-banner">
-    <div class="hero-label">✦ Featured Pick — Today Only</div>
-    <div class="hero-title">A book that changes<br><em>how you think.</em></div>
-    <div class="hero-sub">Hand-picked by our curators. Yours absolutely free — no strings, no catch.</div>
+  <div class="promo-banner">
+    <div class="promo-text">
+      <div class="promo-tag">✦ Grand Inauguration Special</div>
+      <div class="promo-title">Today only — <em>on the house.</em></div>
+      <div class="promo-sub">Celebrating our store opening with a very special gift for our first customers.</div>
+    </div>
+    <div class="promo-badge">
+      <span class="big">FREE</span>
+      <span class="small">Today Only</span>
+    </div>
   </div>
 
   <div class="breadcrumb">
-    <span>Home</span> &rsaquo; <span>Books</span> &rsaquo; <span>Self-Help & Finance</span> &rsaquo; The Almanack of Naval Ravikant
+    <a>Home</a> &rsaquo; <a>Books</a> &rsaquo; <a>Self-Help & Finance</a> &rsaquo; The Almanack of Naval Ravikant
   </div>
 
   <div class="main-content">
 
-    <!-- Left: Book Image -->
-    <div class="book-image-panel">
+    <!-- LEFT -->
+    <div class="left-panel">
       <div class="book-cover-card">
-        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAKcAtQMBIgACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABAYDBQcBAgj/xABGEAABAwMBAwgHBQUHAwUAAAACAQMEAAUREgYhMQcTIkFRYXGRFDJDc4KxwSM0UoGhFSQ1NkIWM2JydLLRg5LhFyVTdXb/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8A7VD+6Me7H5V8zIrE2MceSOpssahzjguU4d6V9Q/ujHux+VZ6Cp2izQSu1wEo/RjuhzPSXduz279/bUzat0GP2a84WkW5YkXgiKq7qzWhtwbtdyNshEnQ0kQqiFu6l66bQtOOO23mmyLTLFS0jnSnavZQaraK92+4W7mIzxE5zoLp0Em5F371St/fP4NO9wfyWom1TJu2nSw2Thc6C6WxyvHfUy9CTlpmAAkREwaCI71VcdlBWbQuzxehiTLnpnQ6Wk8c5u354cautVy1XfmokSKdun6hAGyLmOjncmc54VY6BSlKBSlKBSlKBSlKBSlKBSlKBSlKDU372HxfSlL97D4vpSgnw/ujHux+VZ6wQ/ujHux+VZ6BSosiYzHeYZdLSTxKAeKJmpVApUVmYw/Lfjtll1nHObuGeFSqBSo8SS3Lji80uRLP6LhaNyWnZDscCy4zp192cqnyoJFKVGYlsvyX2Wy+0jqiOJ4plKCTSsT7gsNG4fqtipF4JXkaQ1JZF5gxNokyJJQZqVGCawc5yGJfbtihkOOpeFSaBSosOWzNAnGC1CJkC+KLj/zWciEQ1EWB45Wg+6VpD2ntYmo844QjxcFpVHzraq+36Pz+fstGvV3Yz8qDNSoKXKL+z/T1c0xtOdRJjd4cazRJAS44vN6tBbx1CqLjwWgkUpSg1N+9h8X0pS/ew+L6UoJ8P7ox7sflWesEP7ox7sflXxcBfKG6MMhF8hwBEuERe2gql1daukubIGU22UIUSIJOImTFcqqJ18MeVWm2TBnwWJQ+0Hf3LwVPOoULZ23sxGm34rLzgimpwhyqr1192i3OW16W2JD6I4etkU4hninhQYbV/MV3/wCl8q2c970aC+9/8bZF5JWocg3di6TJVuKFpkaf77VncmOr86mXeJJnWZyK0TYvuCKERZxxRVx19tBo9mpf7Lacjzi+zcYSW34Km9PHh+tfezRvjeXXJe457CP6fw9JcJ5LWyu9jbuDUFv1fRyFC72+Cp+iVmkwHSvMKYxzYtMgQGPBcLwxQSblMCBBdlHwbH1e1eCJ51VbY6NtlwZZSm3CmZCWImi6SJcoqonDHDzqwXe3O3F6I2RD6G2et0es1TgnZisc7Z63vRHG2IrLLpCuhwRxguqg2Fx/h0r3R/Jaq9pWTZrdGnNanoLwor7fW2v407u2rE2zJK0+jySbKSrStkQquFXGM/Wvq1QziWtiK/pImw0ljei+dBrbe62/tPLcaISbKI2okPWmalbRzvQbYZAX2zn2bf8AmXr/ACTK1jtlmG23Z99j7s83gR/Auc4Tur2bayuF2aemc25CZbVBZXeqmvFV6sY+VBrLETNquwwWpLbzEpoVEhcRcOIm/h2/8VO2rIijxI+rS1Ikg26X+Hjivbls+wUdCtjLEeW2Ym25pwmUXguKn3CANygrHk9HVhdQ/wBBJ1pQSG2G2mRZbARbFMacbseFYpgiNufARwItEiJ3IlasWto2g5gHoTg8Bfc1asdqpwVa2rjThwCZI9TqtKGrtLGM+dBUNntM12JFuZaWGWkOMyXqvLlckq9eOz/zm81X1sROWSNFJwRlxxy083/SXHj2LW3hek+jh6ZzfP46XN8F70oJNKUoNTfvYfF9KUv3sPi+lKCfD+6Me7H5VnrBD+6Me7H5VmVaD2laBLvOnkS2aG04wJKPpD54Q1T8KJv/ADqRbrq45K9BuMf0eXp1CiFkXE61RfpQbelau/XB63x2CYZF1158WREiwm9F6/yr7tr1zccL9oRWWRx0Vbc1ZXvoNjSlKBSlKBSlKBSlKBSlKBSsbrgNNk44QiIoqkRLhEROK5rnG0PLLs5anyj24X7q+JY/d9wZ7EJeP5IqUHS6Vw4OX0ie0ls10c46M3JfkmjfVw2X5XNmr64Md1xy3yS3C3LwgkvYhpu88UHQaV5mvaDU372HxfSlL97D4vpSgnw/ujHux+VY7oBu26S21/eE0SD44rJD+6Me7H5VnoNRsy805Zowtafsw0GPWhJxyn61FvJC9f7Qyx0n23CcPH9AY357M1JlWCI/IJ9px+K6XrFHc0Z8UqRbrVFtqETAkThes4ZZIvFaDX7XDqiQREiHVMbTUPEcoSZSp1ut78Q3FdnvytSIml3+nvSs06C1OFgX9X2LoujpX+pOGfOplApSlApSlApSlApSlAryvaq3KZdysmw93mtEou8zzbZJxEjVARU8NWaDivK9ygv7QXB+z2t9RtEdxQJWy+8mnEl/woqLhOC8ezFHtce5RpDMqNBeJcLpXQqISKK5wqYX1crlFrUJVigv3p6LE5q4c210wYbPqER6aomFREQV39a53ItBPjX3aDWOmA2ek1PpNrkckSL0s5RMguVX8OV4ZquS7fOYEn34rzbeV6RCuM6lTGfFFSrIEDaIjab9IjqTxmAjgcEnOYXKafVUnl3L1EqYThWqu7t1CC2MyZz0aQZ6REsjqElyvBETeWUTsVOG6g6XyJ8oTzcpjZm9P62HMBBecXeB9Tar1ovV2LhOtMd6r8RsPHGeafZLS42SGBJxQkXKL5pX7J2buP7XsFtuPD0qM28SdikKKqeeaD4v3sPi+lKX72HxfSlBPh/dGPdj8qz1z7kUnzLnsk4/cZj0p0ZRgJPGpqgoI4RFXq38Ku9x/h0r3R/JaCVSuX8lu3T86LBtG0mpuXIZ1QZR8JgIuFTPDWioqL2+PHeNTpf/AKrvwfSX/QxtAuej6+hr141Y7cbs0F0pUS6T2LXbpM+WWliO0TjhdyJmqJyXbS3G5y7hAvjZMynkG4xBJfYO8BT/ACqiefDdQdGpVI5SZ06xM2vaCHIfGLBlik6OJLpcYPcqqnWqLjHjXvKNeZLVst9ssUgm7he5IMRnmiwoBuUzRe5Mb++gu1eZqM2gwoIC48RCw0mp5wsqqIm8iVfDKrXO+T7bCZddqJw3Bsm4N4QpNp19YNrzaoidWURCx25XroOnUrX30zbslwcaIhcCM4okO5UVBVUVK1nJ9KkTdirNKlvOPPuxRJxxwskar1qtBY6UpQKonLVGck8nF15odRN824qf4UMVXyTK/lV7qJc4TFyt0mBKHUxJaJsx/wAKphfnQfiethb1fc1NtSXGRbFXeiSompOC8URF762d52dTZ2/y7RfXHGSYX7NwQyjgrwJOO5UwvdhU41CBi1EGo5Lg/ZqqDxXVjci9HdvynXnjuoM4w3xdEhuJatQ9LK5TJpkk38M4XPXjqrXXBXefJtyQT3NkuklJVTeuVxnhvXf31MWNaw065bnr41Dv6KpxxjqVd+/uxXno9r+1/e3N2rTuxnCDhcY7VJMd3VQaiv2FsAw5G2IsbLo6TGCzqHrRVFFwvnX5v2I2T/tRtczAh6nLeyoOyXi34bTGUzuTKruRP+Fr9XNgDQCIjpEUwnglBrL97D4vpSl+9h8X0pQUzkF/kx7/AFp/7Qq/3H+HSvdH8lqgcgv8mPf60/8AaFdHVNSdKg5lsVs3C2o5JLPDm6xIRNxh9vcbDiGWCFe7s66wbGDfG+Ux9naMRKXHtXMjIFFQZIIaYcTvXOF7FSuotNNsgjbTYtiPARTCeSV4TLRPA8TY86CKInjeiLjKJ44TyoOf8qLku+y4Gxtocb9KmZlSeczpBgOCFjK4IsdW/GOutJtFE2v2fn23a29PWp5i1EjTo24DEuYNUEkVFTConFOxa62jLSPc9zYc6qY5zSmrHZnjX042DoEDgiQlxEkyi+KUEK4RIt9sj8VwhciTWFHUO9CEk3Knmi1zXkut91m34pN/H+XGFtkbPWeV1H/26Uz2KnfXV22xaAQbEREdyCO5ETwr5aZaZV0mmxFXC1njrLCJle/CJ5UFL5U50l63RNmbU4I3K9u8wPS9RpN5kuN6JjdnvWqrtHYNtLXbIF1lPWVxjZzEhluEBgfNiiIQ5VMKiii5SuvKw0TwvE0BOimEcUUyidiLxSvswEwISHUJblRetKDSSrgxdtjZFxhlqYkwDcBe5QX9Uqt8l21Njc2YsdmbubBXIYyB6OhdLUiKqp5JV8FhptnmgabFvemgRREwvdWJqBDZMTaiMAY+qQtIip5JQS6UpQKUpQVTbvYe27ZQBamZals55iUCdIFXqXtFetPLFcA2k5LNqrI6WmAdwY/pehCrnmKJlPLHfX6qpQfi8bBeiPmxtM8j/D6MefLFXDZfkj2mvZicyOtrif1OShVDx3Bxz44r9QUoNDslstbdk7UEG1t9Hi68e83S/Eq/Tglb6lKDU372HxfSlL97D4vpSgpnIL/Jj3+tP/aFdGMhACIi0iO9VXsrnPIL/Jj3+tP/AGhV/uP8Ole6P5LQRYN/stzc5u3XaBKc/CzIA18kWtpX52tC2G4bHWa3WSFzm2AugYvRoxAbeHM6jcwiKKDjiq9XCv0M3q0Dr9bSmfHroMTkphqS1HNwRfeElbbzvJBxnHhlK9lSGIkZyRKebZYbFSNxwkEQROKqq8Erj+0U+53G/wA7bO2ERW/ZqSEdtseEgEX94VF8FRM79yd1dbFYt3taF0Xokxj8jAk/4WgyxpDMqO3Iiui8y4KEDjZIoki8FRU4pWOLcIkt19mNLZedjlofFs0VWy7CROC9y1zvZC/f2U2Y2gtV1L7XZwzRrV7Rkt7Xmq48qsHJjZnrTsqw5O6VwnkUyWXWpuLlEXwTCedBZIs+HLdfbjSmXnI5828LbiErZfhJE4L3LRJ0MpxQBlMrLbBHCY5xNYiu5CVOOO+qbybfx/bb/wC5L5VV9tto39m+Uq4uQ22/SZVsjxmnnf7phSc9c+5KDrA3OCVxK3DMjlNEdZR0dTnEHtUeKJ31Nqt7G7MRtnoRkr3plyl4cmTj3k+a7856h7ErByjXp2z7NuNwf4lcDGFCEePOubkVPBMr+VBY4spmZHGRFcFxos6SHei4XC/qipXzMlxogNlKeBoXHBbEjXCKRLhEz2qu5O9aovJqL+zdzuGxk5znPR0GVBcL2jR+uieBZ86kctI6th3R1adUuOmrs+0SgveaiQrhEuAulBksyBZdJlxWjQtDicRXHBUymU76p2yt+nWm6hsntW5qmaf/AG+eXqzm06u40TCKi71/Vfnkf+47S/8A6GX8goLGW1uzYkQlf7YJCSoQrLDcqcUXfW0iSmJsZuREfbeYcHIONkhCSdqKm6ubbWbO2RvlC2Rjt2eALEw5ayW0jjpeVG8oppjfhd+/rrpMOKxCjNx4jLbDDY6QbbFBEE7ERNyUEilKUClKUGpv3sPi+lKX72HxfSlBVeRe3TrVsm4xcYrkV0pRGIvDhVFRHC/pV3ngTsKQ2A5MmiQR71RcV9Q/ujHux+VZ6Dklq2Qvdo2X2fu9sh83tHbBJt+KRJ+8sKZKraqi4zvRUXO6rztLMu39kpL1lt7xXR5hEajkQoTZFuyq5x0cqu5eqrDivaDm1t5IbG3bWGZkm4k/oTn9EtRAjVOlhOGM1uuTqBc7NbJNlubDiNQZBBDkESKjzKqqjjrTHDeidVW+lBzjbfYl29baWiY1qSDI0t3IUzgxaXWGrtyu7f2JXRq9pQU3Ye1TrdeNqn50cmWplzJ5giJOmGMakwu786jSdmjuW3t4eucLnLRMtLcbnFVMESHlUTflFTjnuq9YpigpWw8W/WGQ/s9c2XJVsj/w+46k/u+ps0zlFROComNyp2VD2g2XmbYbZEl4akxrFb4yJGJp1BJ94lRVNFRVVERExvRF866DimKDmNz2CLZqfbb7sqM+ZLiyER9h6TziuMEioSJqwiYRc8asHKda5142VKJbY5Pv+kMnzYkiLpQ0VV3qibkRat9eYoNLtTs5B2mtRQp+oSFdbEgFw4w4nAxXqVP1rRcltjuez9su8O8dKQV1cdR5ODwk23008VRfzRUq8UoKdtLap8vbrZOfGjk5EhlK9Jc1JhvU3gcoq53r2VcaUoFKUoFKUoNTfvYfF9KUv3sPi+lKCfD+6Me7H5VkcPmwIi9URVfKscP7ox7sflWRwBcAhL1SFUXwWg1DG0dvktI5DcKRqcEBFlNaqShrwmOwd69nCvT2jtTejnZGnnBQx1CqZRRMvk2SeKY41l/YsHm9ING3pUVEm3SEhUQ0IqKi59Xd39dHrHbXhZB2G2QsggN5z0RQhJE/7gFfy71oMsm4txziC4D3705oDSPBdKrv7NyKv5V8wLpGmnpY5xNQI4HONqKOAv8AUPanDzTtSpL0dp42jdHUTJ62+4tKjnyJU39tR4VriQSIozZD0UBNThFoFN+kUVVwmepMdXYlBhcvsNsJLhI9zccDMnNG5UFcLhevC5T8lrJFurEmQ2w225qcYR8SwmnSq44oqpnNYjsFtcdfcOORE8Btl9oXRE1ySDv6OVRFXGN6ZqYzDZZMTFCJwW0b1EaqulFzvVeO/r40EVq8w3Xn2hJzVHdFlz7NfWItKYXsyi+XhXiXyD6P6Q4ZNxiNBB50dIHnOFRezdxXu7UrI1aITbrrjbOk3nRec6S9I0XKKqZxnP6IicESjNphshpFs+aE0MQJ0lEFTKbkVcIm9dybvJKCVDkNS4jElgtTTzYuB/lVMp+i1IrBGYaix2o7A6WmgQAHjgUTCJ28ErPQKV5mmaD2lKUClKUClKUClKUGpv3sPi+lKX72HxfSlBPh/dGPdj8qyOBrAhL1SRUX86UoNM1a5wg/z0znSJokb3qmk13Z8kH81Jeusr1sfM3SYe5nnH1c1CW/HNqOMKip6y5/XjXtKD4bgSUkNmRjgeb+01lkURERQROGFVFXPf3JRLdJcaIXyEt7SD013oJqqr4qi4rylBlukWTJ0+jEHREhFHCVEQlxgt3HGF7OO5axvWx9wrgpkipIIFbyfDCCnZlN6L1rx6qUoM6QDGQTrSoOqQLi713igYx55XFRGbZObjc2cjnvs2k0ka5LSqqQqXWi5xnGcblz1qUEsYsoLYrOpvnkLKaSVEwhZQc714bs4/KsRwphPP4dRsSBzQQmuUItOPDGF3p29VKUHyUF/XDVtAZbZUtbAukqHlUVN+OrCr+nXmpkGIcZX9bhFqNVHUudIdQp4b/OlKCbSlKBSlKBSlKBSlKDU372HxfSlKUH/9k=" alt="The Almanack of Naval Ravikant" class="book-cover-img" />
-        <div class="book-cover-caption">Featured Book</div>
-        <div class="stock-badge">
-          <div class="stock-dot"></div>
-          In Stock — Limited Copies
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAUFBQkGCQkJCQwTDg4MDg4ZEg4SEBcOEBAXEBcXEBQXFBQaFxMTFxoUFxgjGBwZHxoYIRgjGCMiIiQnKCMXJzUBCQkFCQkJDAkJEyEXDhoiHAwYKSIoGiIkIiIZLCIoISIUIyIaHx8aGhwYHCIaJCQjDhkkIRcvGRoXIiEnHxckKv/AABEIANIA0gMBIgACEQEDEQH/xAB2AAEAAgMBAQEAAAAAAAAAAAAAAQYCBAUDBwgQAAICAgIBAgUCBAYDAQAAAAECAAMEEQUSIRMxBiIzQXIUURUyYYEHFiNCQ1JxkrEkAQEBAQAAAAAAAAAAAAAAAAAAAgERAQEBAQAAAAAAAAAAAAAAAAABETH/2gAMAwEAAhEDEQA/AP2XERAREQGX9J5XDLHl/SeVwyoPORJmMoJEmYwJkREAZERAREiAiJqX13li1VgXaqArAso122dffZI/Y6X+YQNuJomvM2dWoRtv9mm1/t86KggeCerDZJ0dAF6WX53am/k1peq++22NMdfYfMxI0NqdsQ35Y+E+m/5SsVd+g9TXbzvXt7+P3+3v5PmWfhfpv+Um8GzERJCIiAiIgIiICIiAy/pPK6ZYsv6TyumVB5GRMjMZQiRJiBjEmRAiIiAmtlUm5AqsVPqUnau1Z6q6s47Lo/MgK69jubMTBxbcfkC9ZS5Qocl19y6+qbQAeh1/phaf6K7EeUTftn42TabzRb1BpRUXsV0/cs7+CACU0oPv+zL5J6cQOHlYnIOMv0Lwvf8AT+jstuvp09YMdt5fTaI2CTt+w0JvPXkesjqfkFl21LaXoygV7AB2yt7fzqNnYJ6MN6IGtgpalFa3ktYAdsT2ZvJ6ljsjsV0W0SAdhfGpbeE+m/5SuSx8J9N/ymXg2YiJIREQEREBERAREQIy/pNK9LFl/SeV0yoK1jc7bfecY8dfW6Co2dnoIpW3YV262nYPU+F7HxOmuarZduGFPauiqwv46EWs9YA++wUJPjWiJz8Ug8xyo+4xeO/+3zn5OGMzmshfXtpKcfin/Rs9Jm3beo7eG2B9prVhw8tcy3KqRSpxr/TYtrTN0S3a62eunA86OwZycHnmzypqwcj0msdfXJp9MdGNbMR6vqdVYH/buPhWoUX8tSHaw18iAXdu9jH0KD85lY+F78ACoHkyl5ysn/8AEMpFQn1rAqmjXY9x82vdiYMfRpEmRNYiIiAiJEBIkxAiTEiBMsfCfTf8pW5ZOD+m/wCUm8G1ERJCIiAiIgIiICIiAy/pPK60sOZ9J5XjKg8yZiZxeW52rjcjAocb/U2EM32qTxWrn8r3SsfkZuctmHj8PMygvY49FzhCeoY1qX6k+SN60To6mjdkeP2H/qJCN2VG/wCyqf8A2AM53G8mnIXZ1Feu2JkGphv38Blb+52v/lDA6MTl8Ny9XL0NkU+UF16A732FTFQ3/hxpx/Rp5clzdWBk8fjONnLsI7fapfCK7fncyVD9y8DsRNLk8s4OLlZIXuaKrH6E9A3QFupbz13rW9HU1aOaoy8G3PxtuiV3MUPyOGpBZq3Hno4I6n31A68ieGFecqjHuC6N1Vbdd9uvqKH1vQ3ret6G5z+M5qnkrc+qr3xLuhP/AHGtdx/T1Fev/wA1GB15E5PJct+ksoxqqWvyLwxSlWCBUTQay2w/LWgJC70zMTpQfM2uPvyMguuTj+gysoGrRfW4b7o4CH5fZlZVIgbkSsf5nQ0UWJSz35F2TXTiqwL2HHsal3LaCpWmu7uRpAQvlioNmH9ffxvXkf2OgSP66G4Eyx8H9N/ylb3LJwf03/KLwbcREgIiICIiAiIgIiIDL+k8r2tnUsGZ9JpXTKgoJ4jL5wchezpRVnqavTvxrGuSioslZB70msuSbgCu1LAzeyLsnkeCzxfUwyf0mXW6dSC9qI1ZKDQ7Ld4dCoIYNLaxmJJmmudxHJ05oXqtq+itXf1aLMf7f7e6r39jvrvX9xKFRxWcMLCvxu1V/JJfXlbBR6VzLHyRcQdEPjBmUA6+pPprMT7mNk7g1XuFxlw8vlcSqv06RZivUOvWsK9CVEKfY9TV82vbezK43E5nPryGQDVVVyCitFvqs9eumhmWpk0U6Fm3eNrsFgTPoZOwBIJJOzBqn8hmXcj8Pck91bC/9HlpbV1O/VrVkfqv3DsOyEeGDDUc/wAXeoyM7j17XX43TIo3oZamvorD31fUD8rf8ij02/4yLhs7B35EiDVYtzrcLiMI4u2vuoxKqPH/ACWoqqxGjoVDdjb9gk4VWBlfD1nHZNopGNj1rjWGk2M/p2sAllvcDfS7TM/2DuTPovY+fPvvf9dyASp2DowarHI3/wAH5CzNyFb9Pfj1VPcql/0z0O7r6iqCwrtFh+cAhGX5tbE7HE8rjcmxbEs9RK3UGwKy1knzpGIAfX3I2Bub6kodqdQ7l/LHcD5Zw++FSzmCC+Pfdlpl+C1mMtWTaK7ax7mpT9ZB+/qj2afTgwYAggggEEHYIPkEH2II8gzPud9t+f3mECZZOC+k/wCUrUsvA/Sf8ovBuRESAiIgIiICIiAiIgM36TSu+/gSwZg1W0r+yPIlQVVMjO5R72xrlxceqx0R/RF917VEpY/zEIlYcFFGiz6LbE2uLzsh7cjDzQnr0BG9SsFar6rSwSxUJZkYMpR022iAQdMJq015nEvfXVjnKxrLbXrFb113UG1vUdGFhrR0LksjhtjeivgE7HF4eT6+RnZgVLbkqRaUbutFVRZwpfQDu7MWcgaHhRvRJ1rkYvMXX52RRZyGNUK8t0TEapfXtRT46sbVbb+wIQy4zi8ThNQ2c11QBszb3RiFYlH69GBGyvsfHgidmAkRE1hERASJMiBEgzKRAiQZMxgJZeB+k/5SsmWbgfpP+Uy8G5ERICIiAiIgIiICIiBjlj/SaV4yx5h1U0rhlQeZmM+WcF8T5uLmcovIHvx55TLpoyidtiP3Gqb/ANqbC+qX2RUdVtoGuXPhL7Lcn4gSxiwo5IJWCSRWn6XGs6r+y93LTdHfkT59znxDlYnKo9fjj+NNKcg7bUd8/QqIJCoP0Y6W2N3OkvM7HxbmXcRVj8krEVYWQhyqwGZXx7T6NzFVDEnG2LwfsEaNFoiVhsm/L518aqwrj8bQDeFOhfflfSrfaeRRSDaQG97kM4vxR8TZPH5tP6ZO+NxqpfyZB2yU5BaisAL3c+mvfLcdPalY0fQYnC+MMm7jeH5vIpYpdjYWU6OPdXrQsrCWG5QraHtof/IHnIkyJoTGTIgRMZlIgYyzcD9J/wApWTLNwH0n/KTeDdiIkhERAREQEREBERAxzRqoyutLFmjVTSuNKgq3A8E2AnLVZPS5M7OzLehXshqyQo9O1W8N4BDDyJh8M8Afh8clWrtemRl+rV61rWOo9GqkVWOQzEIa9B/nPTW9kGWxq2A7EeP3nkRNwfOcH/DjAtxWXlRbfkZXd8x0zMimq62/zb1rSyqsoPCJtASiKDLdxeDeeOpw+XZMl/RNV7jZTIXRq7ENo7tr8uPYMSBOwR194YdfB8RgqvwX8PP8PcdViZN7ZN3ex7shmZ3uJPVCSxJ2lKpWPwnLxfgXGyky7OY7235z2tkijNyacdw+60qCI9KOtdGqdsgLgS/9D2668/t9/wB5iB23r9txgpQ+HsxvhzM4Sy1HtbDycem8sdMhU1Y7XHrsOE0LdBvKkiWPjreRt7nkasetvl6fp7rLwR9+5eqkj7a0DOlo639t+8Ab3GCJEyHkgSIGMiZhGYlQCSPtIdGTXYEb/cagYSJMxgQZZuA+k/5SsyzcB9J/yi8G7ERICIiAiIgIiICIiBGb9JpWzLHmDVTSukSoPz1hYWNk8ry1GHQ1fKnnL7a88L0RaKHo/UBre6eqgQlGxwH82AldbcfZPijnhwOBl56BS1YApR2CI1trCqhXYsgVS7DsxYBVBM5tnwdT6WWlWTdVZdyD5aZCFRZjXuAnyDr0ZOm0ZHB7q7Azq8lw1PJ34V2Rp0xGsZaCoap7HU1Cxwd/TRmCL7Avs7IWMFU/w+ykw1y+FTNXNbjzW6Zaulhvqyt2FmKu/wAyZAsQroaTpNUcr/lEc9hUIGasrkcdR4Pc8i/oikIoQ6TPJ/FLllv/AMuYtWXh5uMi4744uUiqtUS6u8DvW4UL7Mqure6lP2Jk8n8PY3J5nE59w3Zxllz1bAYH1kNZH9j1sB+xSMFH+M+FXg/gzJ45XL+hXih7dndrnJqe6w7Zju2wlzOz/iXlvhfwbIqpe9qeYqYY9X1bitGTpFnf+JeCTn+OyeOe1qlv9PdigMy9HW3wD4Oyup781xS8rbx9rOUOHmpeoA7dyiWV9D7aBFnvGCt/BOHXkULzlmUmdlchUpbLTYorr+2NiofmqqqYaYEB3cFrJy/jTkcq7LSjj7VR+JqTMtUuq/qH2y0Yn8+x69QtL7Q9d1mXTB4gYOZlX0vqnKPezF6aUXHQe5HBHT1R9VOpDt84IPffKx/gvji192fjUZ2RffbY99+MljbfQRUD+qUSqtVrVQ3sm4wbPOZdGdwWfk0/6lGRxuQ6E7TvXbQzr+zDamcb4Oz82jG4/D5Wz13ysRWxswjzk7p9Q1XDbayK1/qfXQdwdi0Dq43wyuLxufxVduqcj9YKdVhf0iZQO61A0HWp2Yp/LpSEm23AY1/GV8TlD1qVx6a238hb0VCq415RwR3Ug7QwOR8N8Njc98O/D2NnBnRsDAY9brKHLeiPJetkeaX+GnGU4/CcbmJ3N2dh4z3vZfbeXYA+dO7hPcnSdZceAwf4NhcfhhvUGHj01h9dO4pUVgkedEgTV+H+J/gvG4HHd/U/SUV1+p16d+g1vrttb/bZm4OtIMmIGBlm4H6T/lK1LLwP0n/KLwbsREgIiICIiAiIgIiIDM+k0rjSxZn0nlbaVB5kbiTImiIkxAiJMiAkSZECIiIGMSZECJEykQMTLLwP0n/KVqWXgfpP+UyjciIkhERAREQEREBERAjM+k8rRlmzPpPK2RKg85EykTRESQIgRERASDJiBhqTJiBEiTIgRI1MpEDAyy8F9J/ylbMsnB/Sf8plG3ERJCIiAiIgIiICIiAzfpPK4ZYsv6TyvGVB5RMjI1NGMSYgREmIGMTxvvFPp7BPd1XwN9d+7N+yr9z9tzSPMY/zjbbQkMOvt18k++gBsb7Fem/n66MDpROX/GKei2FbApLjynUqU67BBIOz2+Xx82iB56g5XctRQzo/faFw2q20CgJPnQB9iB+5H7BiA6MTmV8vU4sPVwqKW7FfBAX1BrzsFl8gEL7EHR1sOXpbXRXbaswHTqWCjt8oYgnt7D+v82trsOlIM5Z5zEBI7nwQD8hHk6176Pnet+wI6k9igL+M44IBLDf71tr3Cb3rWux1s69if+uw6Zlj4P6T/lKvRcuRWlqb6uNjY0f7j3Bm/wDDPO05OZyXGKri3CXFZ2IHRhkqzJ0Oy3gIe2wJlFkiIkhERAREQEREBERAZf02leMsOV9NpXjKgwkSTE0YmRM5GoEakTOQRAwnKzeVGA1idCRXjW3HWx4r34ChW2zEHz4/oGO52NSCo2DobHsdeRv30f6wOMvNhhUUU9rVqKhrBUurEe0bYgkaVD/t2SQND59bGfyqYHUN2O0dhohfCPVX52fALWrtj8qAEsZvvWtgKuoYN7ggMD57eQfB8+Y15J+5GifuR58E+5Hk+PbyZg4tnxBXXYlbq4JGUSVPqhTik+p1I/n2QeutOT4KArcF9cfmRk2U0KNvYzbAf1Fr6pXbtmUHe1tU/ZfPhiChPVUBAoUBQoUKAAAoXwoUD2C/YDWp5imsBQEUBCSoCgBCdklRrSkknZGidmBxMb4lozErtrDaLYwbuVDUG5Tags0WO0HkFe6n1FcN0LOPZ+dVFLFHI2mgmrHIe39NsoD2Qq/k1n5yoIUF1dB12AbrsA9SCuwD1I8gj9iu/GvbfiYhFUsQoBdgWIUAsQNBmPuWA8AnZEDWxMxM6mvJqYMlo2rAhgw2QGDAkENrYIPkGcf4JcH4o+LAD7UcN/b/AErpYyNkmWDhFArc692ijaiIkhERAREQEREBERAZf02lciJUESIiaIEmIgTERASYiBExMRAiREQIiIgPtLDw303/ACiJlGxERJCIiAiIgf/Z" alt="The Almanack of Naval Ravikant" class="book-cover-img" />
+        <div class="stock-badge"><div class="stock-dot"></div> In Stock</div>
+        <div class="share-row">
+          <div class="share-btn">♡ Wishlist</div>
+          <div class="share-btn">⤴ Share</div>
+          <div class="share-btn">★ Rate</div>
+        </div>
+      </div>
+
+      <div class="also-card">
+        <div class="also-title">You May Also Like</div>
+        <div class="also-item">
+          <div class="also-thumb">📘</div>
+          <div class="also-info">
+            <div class="also-name">Zero to One</div>
+            <div class="also-author">Peter Thiel</div>
+            <div class="also-price">₹349</div>
+          </div>
+        </div>
+        <div class="also-item">
+          <div class="also-thumb">📗</div>
+          <div class="also-info">
+            <div class="also-name">The Psychology of Money</div>
+            <div class="also-author">Morgan Housel</div>
+            <div class="also-price">₹299</div>
+          </div>
+        </div>
+        <div class="also-item">
+          <div class="also-thumb">📙</div>
+          <div class="also-info">
+            <div class="also-name">Atomic Habits</div>
+            <div class="also-author">James Clear</div>
+            <div class="also-price">₹399</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Right: Details + Form -->
-    <div class="book-details-panel">
-      <div class="book-card-main">
+    <!-- RIGHT -->
+    <div class="right-panel">
+      <div class="book-main-card">
         <div class="book-category">Self-Help · Finance · Philosophy</div>
         <div class="book-title">The Almanack of Naval Ravikant</div>
-        <div class="book-author">Compiled by <strong>Eric Jorgenson</strong> · Foreword by Tim Ferriss</div>
+        <div class="book-author">by <a>Eric Jorgenson</a> &nbsp;·&nbsp; Foreword by Tim Ferriss</div>
 
         <div class="rating-row">
           <div class="stars">★★★★★</div>
-          <div class="rating-count">4.9 / 5 &nbsp;·&nbsp; 12,400+ readers</div>
+          <div class="rating-count">4.9 / 5</div>
+          <div class="rating-reviews">12,400+ reviews</div>
         </div>
 
         <div class="price-section">
           <div class="price-row">
-            <div class="price-original">₹399</div>
-            <div class="price-free">FREE</div>
-            <div class="price-tag">100% OFF</div>
+            <div class="price-mrp">M.R.P: <span>₹399</span></div>
+            <div class="price-free">₹ 0</div>
+            <div class="price-save">100% OFF</div>
           </div>
-          <div class="price-note">🎁 &nbsp; A gift from Ishan Book Store — powered by PayTech · Zero transaction fee · Zero MDR</div>
+          <div class="price-note">Inclusive of all taxes &nbsp;·&nbsp; Free home delivery</div>
+          <div class="inaug-note">🎉 Grand Inauguration Offer — Free for our first customers today only</div>
         </div>
 
         <div class="book-desc">
-          A guide to wealth and happiness distilled from Naval Ravikant's decades of writing, tweetstorms, and podcast interviews. This is the definitive collection of his wisdom on how to create wealth without getting lucky, and how to live a fulfilling life on your own terms.
+          A guide to wealth and happiness distilled from Naval Ravikant's decades of writing, tweetstorms, and podcast interviews. This is the definitive collection of his wisdom on how to create wealth without getting lucky, and how to live a fulfilling life on your own terms. Over one million copies sold worldwide.
         </div>
 
-        <div class="form-section">
+        <div class="book-meta">
+          <div class="meta-item">Publisher: <strong>Magrathea Publishing</strong></div>
+          <div class="meta-item">Language: <strong>English</strong></div>
+          <div class="meta-item">Pages: <strong>242</strong></div>
+          <div class="meta-item">Format: <strong>Paperback</strong></div>
+          <div class="meta-item">Genre: <strong>Self-Help, Finance</strong></div>
+          <div class="meta-item">ISBN: <strong>978-1544514222</strong></div>
+        </div>
+      </div>
+
+      <!-- PAYMENT CARD -->
+      <div class="payment-card">
+        <div class="payment-title">Complete Your Order</div>
+
+        <div class="customer-form">
           <div class="form-row">
-            <label class="form-label">Your Name</label>
+            <label class="form-label">Full Name</label>
             <input id="user-name" class="form-input" type="text" placeholder="Enter your full name" />
           </div>
           <div class="form-row">
             <label class="form-label">Email Address</label>
             <input id="user-email" class="form-input" type="email" placeholder="your@email.com" />
           </div>
-          <button class="claim-btn" onclick="startCheckout()">
-            🎁 &nbsp; Claim Your Free Gift Now
+        </div>
+
+        <div class="pay-methods-label">Select Payment Method</div>
+
+        <div class="pay-grid">
+          <button class="pay-btn phonepe" onclick="openUPIModal('PhonePe', '🟣')">
+            <div class="pay-logo">🟣</div>
+            <div class="pay-name">PhonePe</div>
+            <div class="pay-sub">UPI Payment</div>
           </button>
-          <div class="secure-strip">
-            🔒 &nbsp; 256-bit Secured &nbsp;·&nbsp; Zero MDR &nbsp;·&nbsp; Powered by UPI Infrastructure
-          </div>
-          <div class="trust-row">
-            <div class="trust-badge">✓ Free Delivery</div>
-            <div class="trust-badge">✓ No Hidden Charges</div>
-            <div class="trust-badge">✓ PayTech Secured</div>
-          </div>
+          <button class="pay-btn gpay" onclick="openUPIModal('Google Pay', '🔵')">
+            <div class="pay-logo">🔵</div>
+            <div class="pay-name">Google Pay</div>
+            <div class="pay-sub">UPI Payment</div>
+          </button>
+          <button class="pay-btn debit" onclick="openDebitModal()">
+            <div class="pay-logo">💳</div>
+            <div class="pay-name">Debit Card</div>
+            <div class="pay-sub">Visa / Mastercard / RuPay</div>
+          </button>
+          <button class="pay-btn netbank" onclick="openNetBankModal()">
+            <div class="pay-logo">🏦</div>
+            <div class="pay-name">Net Banking</div>
+            <div class="pay-sub">All major banks</div>
+          </button>
+        </div>
+
+        <div class="secure-strip">
+          🔒 &nbsp; 100% Secure Checkout &nbsp;·&nbsp; SSL Encrypted &nbsp;·&nbsp; Zero Transaction Fee
         </div>
       </div>
     </div>
   </div>
 
   <div class="footer">
-    <div class="footer-logo">Ishan <span>Book Store</span></div>
-    <div class="footer-note">© 2026 Ishan Book Store · Powered by PayTech · A PayTech Presentation Initiative</div>
+    <div class="footer-logo">Book<span>Tech</span></div>
+    <div class="footer-links">
+      <div class="footer-link">About Us</div>
+      <div class="footer-link">Contact</div>
+      <div class="footer-link">Returns Policy</div>
+      <div class="footer-link">Privacy Policy</div>
+      <div class="footer-link">Terms of Use</div>
+    </div>
   </div>
 </div>
 
@@ -843,20 +1564,21 @@
 <!-- ══ PAGE 2 — PROCESSING ══ -->
 <div id="page-processing" class="page">
   <div class="proc-card">
+    <div class="proc-payment-icon" id="proc-icon">💳</div>
     <div class="proc-spinner">
       <svg viewBox="0 0 64 64">
         <circle class="track" cx="32" cy="32" r="26"/>
         <circle class="fill"  cx="32" cy="32" r="26"/>
       </svg>
     </div>
-    <div class="proc-title">Processing Your Order</div>
-    <div class="proc-sub">Sit tight — this takes just a moment</div>
+    <div class="proc-title">Processing Payment</div>
+    <div class="proc-via" id="proc-via">via Debit Card</div>
     <div class="proc-steps" id="proc-steps">
-      <div class="proc-step"><div class="proc-dot"></div><div class="proc-text">Verifying your details</div></div>
-      <div class="proc-step"><div class="proc-dot"></div><div class="proc-text">Routing through PayTech infrastructure</div></div>
-      <div class="proc-step"><div class="proc-dot"></div><div class="proc-text">Applying Zero MDR — ₹0 transaction fee</div></div>
-      <div class="proc-step"><div class="proc-dot"></div><div class="proc-text">Confirming your gift allocation</div></div>
-      <div class="proc-step"><div class="proc-dot"></div><div class="proc-text">Payment complete ✓</div></div>
+      <div class="proc-step"><div class="proc-dot"></div><div class="proc-text">Connecting to payment gateway</div></div>
+      <div class="proc-step"><div class="proc-dot"></div><div class="proc-text">Authenticating your details</div></div>
+      <div class="proc-step"><div class="proc-dot"></div><div class="proc-text">Verifying transaction security</div></div>
+      <div class="proc-step"><div class="proc-dot"></div><div class="proc-text">Processing ₹0.00 — zero charges applied</div></div>
+      <div class="proc-step"><div class="proc-dot"></div><div class="proc-text">Payment confirmed ✓</div></div>
     </div>
   </div>
 </div>
@@ -867,12 +1589,15 @@
   <canvas id="confetti-canvas"></canvas>
   <div class="success-card">
     <div class="success-icon">✓</div>
-    <div class="success-label">Payment Successful</div>
-    <div class="success-title">Your gift is <em>here.</em></div>
+    <div class="success-label">Order Confirmed</div>
+    <div class="success-title">Order Successful!</div>
     <div class="success-sub">Look up — someone in this room is walking towards you right now.</div>
 
     <div class="receipt">
-      <div class="receipt-header">🧾 &nbsp; Order Receipt — Ishan Book Store</div>
+      <div class="receipt-header">
+        <span>Order Receipt</span>
+        <span class="receipt-id">#BKT-2026-001</span>
+      </div>
       <div class="receipt-row">
         <span class="r-key">Item</span>
         <span class="r-val">The Almanack of Naval Ravikant</span>
@@ -882,59 +1607,330 @@
         <span class="r-val" id="receipt-name">—</span>
       </div>
       <div class="receipt-row">
+        <span class="r-key">Payment Via</span>
+        <span class="r-val" id="receipt-method">—</span>
+      </div>
+      <div class="receipt-row">
         <span class="r-key">Amount Charged</span>
-        <span class="r-val red">₹ 0.00</span>
+        <span class="r-val free">₹ 0.00</span>
       </div>
       <div class="receipt-row">
-        <span class="r-key">MDR</span>
-        <span class="r-val red">Zero</span>
-      </div>
-      <div class="receipt-row">
-        <span class="r-key">Powered By</span>
-        <span class="r-val">UPI · PayTech Infrastructure</span>
+        <span class="r-key">Delivery</span>
+        <span class="r-val">In-Store — Right Now</span>
       </div>
       <div class="receipt-row">
         <span class="r-key">Status</span>
-        <span class="r-val green">✓ COMPLETE</span>
+        <span class="r-val success">✓ CONFIRMED</span>
       </div>
     </div>
 
-    <div class="paytech-quote">
-      <p>"The world's most advanced payment network delivered your gift for <strong>₹ 0.00.</strong> That's not magic — that's <strong>Indian PayTech.</strong>"</p>
-    </div>
-
     <div class="delivery-badge">
-      🎁 &nbsp; Your Book Is Being Handed To You Now
+      📖 Your copy of The Almanack is on its way to you — right now.
     </div>
   </div>
 </div>
 
 
 <script>
+
+
+  // ── DEBIT MODAL ──
+  function openDebitModal() {
+    const name = document.getElementById('user-name').value.trim();
+    if (!name) {
+      const inp = document.getElementById('user-name');
+      inp.style.borderColor = 'var(--red)';
+      inp.focus();
+      setTimeout(() => inp.style.borderColor = '', 2000);
+      return;
+    }
+    document.getElementById('card-num').value = '';
+    document.getElementById('card-exp').value = '';
+    document.getElementById('card-cvv').value = '';
+    document.getElementById('cv-4').textContent = '••••';
+    document.getElementById('cv-exp').textContent = 'MM / YYYY';
+    document.getElementById('cv-network').textContent = '💳';
+    document.getElementById('debit-pay-btn').disabled = true;
+    document.getElementById('debit-pay-btn').className = 'modal-pay-btn';
+    document.getElementById('debit-modal').classList.add('show');
+  }
+
+  function closeDebitModal() { document.getElementById('debit-modal').classList.remove('show'); }
+
+  function formatCardNum(input) {
+    let val = input.value.replace(/\D/g, '').slice(0, 4);
+    input.value = val;
+    document.getElementById('cv-4').textContent = val.padEnd(4, '•');
+    const first = val[0];
+    if (first === '4') document.getElementById('cv-network').textContent = '💙';
+    else if (first === '5') document.getElementById('cv-network').textContent = '🔴';
+    else if (first === '6') document.getElementById('cv-network').textContent = '🇮🇳';
+    else document.getElementById('cv-network').textContent = '💳';
+    checkDebitReady();
+  }
+
+  function formatExpiry(input) {
+    // Strip everything non-digit
+    let raw = input.value.replace(/\D/g, '').slice(0, 6);
+    let formatted = raw;
+    if (raw.length > 2) {
+      formatted = raw.slice(0, 2) + ' / ' + raw.slice(2);
+    }
+    input.value = formatted;
+    // Update card visual
+    if (raw.length === 6) {
+      document.getElementById('cv-exp').textContent = raw.slice(0,2) + ' / ' + raw.slice(2);
+    } else if (raw.length > 0) {
+      document.getElementById('cv-exp').textContent = formatted;
+    } else {
+      document.getElementById('cv-exp').textContent = 'MM / YYYY';
+    }
+    checkDebitReady();
+  }
+
+  function checkDebitReady() {
+    const num = document.getElementById('card-num').value.replace(/\s/g,'');
+    const exp = document.getElementById('card-exp').value;
+    const cvv = document.getElementById('card-cvv').value;
+    const btn = document.getElementById('debit-pay-btn');
+    if (num.length === 4 && exp.replace(/[^\d]/g,'').length === 6 && cvv.length === 3) {
+      btn.disabled = false;
+      btn.className = 'modal-pay-btn active';
+    } else {
+      btn.disabled = true;
+      btn.className = 'modal-pay-btn';
+    }
+  }
+
+  // ── NET BANKING MODAL ──
+  let selectedBank = '';
+
+  function openNetBankModal() {
+    const name = document.getElementById('user-name').value.trim();
+    if (!name) {
+      const inp = document.getElementById('user-name');
+      inp.style.borderColor = 'var(--red)';
+      inp.focus();
+      setTimeout(() => inp.style.borderColor = '', 2000);
+      return;
+    }
+    selectedBank = '';
+    document.querySelectorAll('.bank-option').forEach(b => b.classList.remove('selected'));
+    const btn = document.getElementById('netbank-pay-btn');
+    btn.disabled = true;
+    btn.className = 'modal-pay-btn';
+    btn.textContent = 'Select a Bank to Continue';
+    document.getElementById('netbank-modal').classList.add('show');
+  }
+
+  function closeNetBankModal() { document.getElementById('netbank-modal').classList.remove('show'); }
+
+  function selectBank(name, el) {
+    document.querySelectorAll('.bank-option').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedBank = name;
+    const btn = document.getElementById('netbank-pay-btn');
+    btn.disabled = false;
+    btn.className = 'modal-pay-btn active';
+    btn.textContent = 'Continue to ' + name;
+  }
+
+  function proceedNetBank() {
+    closeNetBankModal();
+    openOTPModal('Net Banking · ' + selectedBank, '🏦');
+  }
+
+  let currentUPIMethod = '';
+  let currentUPIIcon = '';
+
+  function openUPIModal(method, icon) {
+    const name = document.getElementById('user-name').value.trim();
+    if (!name) {
+      const inp = document.getElementById('user-name');
+      inp.style.borderColor = 'var(--red)';
+      inp.focus();
+      setTimeout(() => inp.style.borderColor = '', 2000);
+      return;
+    }
+    currentUPIMethod = method;
+    currentUPIIcon = icon;
+    document.getElementById('modal-icon').textContent = icon;
+    document.getElementById('modal-name').textContent = method;
+    document.getElementById('modal-label-name').textContent = method;
+    document.getElementById('upi-phone').value = '';
+    document.getElementById('upi-hint').textContent = 'Enter the number registered with your UPI account';
+    document.getElementById('upi-hint').className = 'upi-hint';
+    document.querySelector('.upi-phone-wrap').className = 'upi-phone-wrap';
+    const btn = document.getElementById('upi-pay-btn');
+    btn.disabled = true;
+    btn.className = 'upi-pay-btn';
+    document.getElementById('upi-btn-text').textContent = 'Enter Mobile Number';
+    document.getElementById('upi-modal').classList.add('show');
+  }
+
+  function closeUPIModal() {
+    document.getElementById('upi-modal').classList.remove('show');
+  }
+
+  function handlePhoneInput(input) {
+    input.value = input.value.replace(/\D/g, '').slice(0, 10);
+    const len = input.value.length;
+    const wrap = document.querySelector('.upi-phone-wrap');
+    const hint = document.getElementById('upi-hint');
+    const btn = document.getElementById('upi-pay-btn');
+    const btnText = document.getElementById('upi-btn-text');
+
+    if (len === 10) {
+      wrap.className = 'upi-phone-wrap valid';
+      hint.textContent = '✓ Mobile number verified';
+      hint.className = 'upi-hint valid';
+      btn.disabled = false;
+      btn.className = 'upi-pay-btn active';
+      btnText.textContent = 'Pay ₹0.00 via ' + currentUPIMethod;
+    } else if (len > 0) {
+      wrap.className = 'upi-phone-wrap';
+      hint.textContent = (10 - len) + ' more digits needed';
+      hint.className = 'upi-hint';
+      btn.disabled = true;
+      btn.className = 'upi-pay-btn';
+      btnText.textContent = 'Enter Mobile Number';
+    } else {
+      wrap.className = 'upi-phone-wrap';
+      hint.textContent = 'Enter the number registered with your UPI account';
+      hint.className = 'upi-hint';
+      btn.disabled = true;
+      btn.className = 'upi-pay-btn';
+      btnText.textContent = 'Enter Mobile Number';
+    }
+  }
+
+  function proceedUPIPayment() {
+    closeUPIModal();
+    openOTPModal(currentUPIMethod, currentUPIIcon);
+  }
+
+
+  // ══ OTP VERIFICATION SYSTEM ══
+  let pendingMethod = '';
+  let pendingIcon   = '';
+
+  function openOTPModal(method, icon) {
+    pendingMethod = method;
+    pendingIcon   = icon;
+    document.getElementById('otp-via-icon').textContent = icon;
+    document.getElementById('otp-via-name').textContent = 'Paying via ' + method;
+    ['otp1','otp2','otp3','otp4'].forEach(id => {
+      const el = document.getElementById(id);
+      el.value = '';
+      el.className = 'otp-box';
+    });
+    const btn = document.getElementById('otp-verify-btn');
+    btn.disabled = true;
+    btn.className = 'otp-verify-btn';
+    btn.textContent = 'Verify & Complete Order';
+    document.getElementById('otp-modal').classList.add('show');
+    setTimeout(() => document.getElementById('otp1').focus(), 200);
+  }
+
+  function otpInput(el, idx) {
+    el.value = el.value.replace(/\D/g,'').slice(0,1);
+    if (el.value) {
+      el.className = 'otp-box filled';
+      if (idx < 4) document.getElementById('otp'+(idx+1)).focus();
+    } else {
+      el.className = 'otp-box';
+    }
+    checkOTPReady();
+  }
+
+  function otpBack(e, idx) {
+    if (e.key === 'Backspace' && !document.getElementById('otp'+idx).value && idx > 1) {
+      document.getElementById('otp'+(idx-1)).focus();
+    }
+  }
+
+  function checkOTPReady() {
+    const all = ['otp1','otp2','otp3','otp4'].every(id => document.getElementById(id).value !== '');
+    const btn = document.getElementById('otp-verify-btn');
+    btn.disabled = !all;
+    btn.className = all ? 'otp-verify-btn active' : 'otp-verify-btn';
+  }
+
+  function verifyOTP() {
+    const entered = document.getElementById('otp1').value + document.getElementById('otp2').value + document.getElementById('otp3').value + document.getElementById('otp4').value;
+    if (entered === '1234') {
+      document.getElementById('otp-modal').classList.remove('show');
+      proceedToProcessing(pendingMethod, pendingIcon);
+    } else {
+      ['otp1','otp2','otp3','otp4'].forEach(id => {
+        const el = document.getElementById(id);
+        el.className = 'otp-box wrong';
+        setTimeout(() => { el.value=''; el.className='otp-box'; }, 800);
+      });
+      const btn = document.getElementById('otp-verify-btn');
+      btn.textContent = '✕ Incorrect OTP — Try Again';
+      btn.className = 'otp-verify-btn';
+      btn.disabled = true;
+      setTimeout(() => { btn.textContent = 'Verify & Complete Order'; }, 1500);
+    }
+  }
+
+  function resendOTP() {
+    ['otp1','otp2','otp3','otp4'].forEach(id => { const el=document.getElementById(id); el.value=''; el.className='otp-box'; });
+    document.getElementById('otp-verify-btn').disabled = true;
+    document.getElementById('otp-verify-btn').className = 'otp-verify-btn';
+    document.getElementById('otp1').focus();
+  }
+
+  function proceedToProcessing(method, icon) {
+    document.getElementById('receipt-name').textContent   = document.getElementById('user-name').value.trim();
+    document.getElementById('receipt-method').textContent = method;
+    document.getElementById('proc-via').textContent       = 'via ' + method;
+    document.getElementById('proc-icon').textContent      = icon;
+    showPage('page-processing');
+    const steps = document.querySelectorAll('.proc-step');
+    steps.forEach((s,i) => {
+      setTimeout(() => { s.classList.add('show'); setTimeout(() => s.classList.add('done'), 300); }, i * 680);
+    });
+    setTimeout(() => { showPage('page-success'); launchConfetti(); }, steps.length * 680 + 900);
+  }
+
   function showPage(id){
     document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
     document.getElementById(id).classList.add("active");
     window.scrollTo(0,0);
   }
 
-  function startCheckout(){
-    const name  = document.getElementById("user-name").value.trim();
-    const email = document.getElementById("user-email").value.trim();
+  function startCheckout(method, icon){ openOTPModal(method, icon); } function _legacyProcessing(method, icon){
+    const name = document.getElementById("user-name").value.trim();
     if(!name){
       const inp = document.getElementById("user-name");
-      inp.style.borderColor="var(--red)";
+      inp.style.borderColor = "var(--red)";
       inp.focus();
       setTimeout(()=>inp.style.borderColor="",2000);
       return;
     }
+
+    // Set receipt info
     document.getElementById("receipt-name").textContent = name;
+    document.getElementById("receipt-method").textContent = method;
+    document.getElementById("proc-via").textContent = "via " + method;
+    document.getElementById("proc-icon").textContent = icon;
+
     showPage("page-processing");
 
     const steps = document.querySelectorAll(".proc-step");
     steps.forEach((s,i)=>{
-      setTimeout(()=>{ s.classList.add("show"); setTimeout(()=>s.classList.add("done"),300); }, i*650);
+      setTimeout(()=>{
+        s.classList.add("show");
+        setTimeout(()=>s.classList.add("done"), 300);
+      }, i * 680);
     });
-    setTimeout(()=>{ showPage("page-success"); launchConfetti(); }, steps.length*650+900);
+
+    setTimeout(()=>{
+      showPage("page-success");
+      launchConfetti();
+    }, steps.length * 680 + 900);
   }
 
   function launchConfetti(){
@@ -942,14 +1938,12 @@
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    const colors = ["#C8102E","#9E0B23","#FFFFFF","#F5A623","#1A1A1A","#E8192E"];
-    const pieces = Array.from({length:130},()=>({
+    const colors = ["#C8102E","#2E7D32","#F5A623","#FFFFFF","#1A1A1A","#4285F4","#5f259f"];
+    const pieces = Array.from({length:140},()=>({
       x:Math.random()*canvas.width, y:-20,
-      r:Math.random()*6+3,
-      d:Math.random()*80+20,
+      r:Math.random()*6+3, d:Math.random()*80+20,
       color:colors[Math.floor(Math.random()*colors.length)],
-      tilt:Math.random()*10-10,
-      tiltAngle:0,
+      tilt:Math.random()*10-10, tiltAngle:0,
       tiltInc:Math.random()*0.07+0.05,
     }));
     let frame=0;
@@ -979,5 +1973,223 @@
     if(c){c.width=window.innerWidth;c.height=window.innerHeight;}
   });
 </script>
+
+<!-- ══ UPI MODAL ══ -->
+<div class="modal-overlay" id="upi-modal">
+  <div class="upi-modal">
+
+    <div class="upi-modal-header">
+      <div class="upi-modal-title">
+        <div class="upi-app-icon" id="modal-icon">🟣</div>
+        <div>
+          <div class="upi-app-name" id="modal-name">PhonePe</div>
+          <div class="upi-app-sub">UPI Payment</div>
+        </div>
+      </div>
+      <div class="modal-close" onclick="closeUPIModal()">✕</div>
+    </div>
+
+    <div class="upi-modal-body">
+
+      <div class="upi-amount-box">
+        <div class="upi-amount-label">Amount to Pay</div>
+        <div class="upi-amount-val">₹ 0.00</div>
+        <div class="upi-amount-free">🎉 Grand Inauguration — Completely Free</div>
+      </div>
+
+      <div class="upi-divider"></div>
+
+      <label class="upi-input-label">Mobile Number linked with <span id="modal-label-name">PhonePe</span></label>
+      <div class="upi-phone-wrap">
+        <div class="upi-country-code">🇮🇳 +91</div>
+        <input
+          id="upi-phone"
+          class="upi-phone-input"
+          type="tel"
+          maxlength="10"
+          placeholder="Enter 10-digit mobile number"
+          oninput="handlePhoneInput(this)"
+        />
+      </div>
+      <div class="upi-hint" id="upi-hint">Enter the number registered with your UPI account</div>
+
+      <button class="upi-pay-btn" id="upi-pay-btn" onclick="proceedUPIPayment()" disabled>
+        <span id="upi-btn-text">Enter Mobile Number</span>
+      </button>
+
+      <div class="upi-secure">
+        🔒 &nbsp; Secured by UPI · 256-bit encrypted · RBI regulated
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ DEBIT CARD MODAL ══ -->
+<div class="modal-overlay2" id="debit-modal">
+  <div class="pay-modal">
+    <div class="pay-modal-header">
+      <div class="pay-modal-title">
+        <div class="pay-modal-icon">💳</div>
+        <div>
+          <div class="pay-modal-name">Debit Card</div>
+          <div class="pay-modal-sub">Visa · Mastercard · RuPay</div>
+        </div>
+      </div>
+      <div class="modal-close" onclick="closeDebitModal()">✕</div>
+    </div>
+    <div class="pay-modal-body">
+
+      <div class="pay-amount-box">
+        <div class="pay-amount-left">
+          <div class="pay-amount-lbl">Total Amount</div>
+          <div class="pay-amount-num">₹ 0.00</div>
+        </div>
+        <div class="pay-amount-free">🎉 Inauguration Free</div>
+      </div>
+
+      <!-- Live card visual -->
+      <div class="card-visual">
+        <span class="card-chip">▬▬</span>
+        <div class="card-number-display">
+          <span>••••</span>
+          <span>••••</span>
+          <span>••••</span>
+          <span id="cv-4">••••</span>
+        </div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-label">Valid Thru</div>
+            <div class="card-val" id="cv-exp">MM / YYYY</div>
+          </div>
+          <div class="card-network" id="cv-network">💳</div>
+        </div>
+      </div>
+
+      <div class="card-input-row">
+        <div class="card-field" style="grid-column:1/-1">
+          <div class="card-field-label">Last 4 Digits of Card</div>
+          <input class="card-field-input" id="card-num" type="tel" maxlength="4" placeholder="e.g. 4567" oninput="formatCardNum(this)" />
+        </div>
+        <div class="card-field">
+          <div class="card-field-label">Expiry Date</div>
+          <input class="card-field-input" id="card-exp" type="tel" maxlength="9" placeholder="MM / YYYY" oninput="formatExpiry(this)" />
+        </div>
+        <div class="card-field">
+          <div class="card-field-label">CVV</div>
+          <input class="card-field-input" id="card-cvv" type="password" maxlength="3" placeholder="•••" oninput="checkDebitReady()" />
+        </div>
+      </div>
+
+      <div class="card-hint">🔒 &nbsp; Your card details are encrypted and never stored</div>
+
+      <button class="modal-pay-btn" id="debit-pay-btn" disabled onclick="closeDebitModal(); openOTPModal('Debit Card', '💳')">
+        Pay ₹0.00 Securely
+      </button>
+      <div class="modal-secure">🛡 SSL Secured · PCI DSS Compliant · RBI Regulated</div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ NET BANKING MODAL ══ -->
+<div class="modal-overlay2" id="netbank-modal">
+  <div class="pay-modal">
+    <div class="pay-modal-header">
+      <div class="pay-modal-title">
+        <div class="pay-modal-icon">🏦</div>
+        <div>
+          <div class="pay-modal-name">Net Banking</div>
+          <div class="pay-modal-sub">Select your bank to continue</div>
+        </div>
+      </div>
+      <div class="modal-close" onclick="closeNetBankModal()">✕</div>
+    </div>
+    <div class="pay-modal-body">
+
+      <div class="pay-amount-box">
+        <div class="pay-amount-left">
+          <div class="pay-amount-lbl">Total Amount</div>
+          <div class="pay-amount-num">₹ 0.00</div>
+        </div>
+        <div class="pay-amount-free">🎉 Inauguration Free</div>
+      </div>
+
+      <div style="font-size:12px; font-weight:700; color:var(--text); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:12px;">Select Your Bank</div>
+
+      <div class="bank-grid">
+        <div class="bank-option" id="bank-sbi" onclick="selectBank('SBI', this)">
+          <div class="bank-logo">🏛</div>
+          <div class="bank-name">State Bank of India</div>
+          <div class="bank-type">SBI Net Banking</div>
+        </div>
+        <div class="bank-option" id="bank-hdfc" onclick="selectBank('HDFC Bank', this)">
+          <div class="bank-logo">🔴</div>
+          <div class="bank-name">HDFC Bank</div>
+          <div class="bank-type">NetBanking</div>
+        </div>
+        <div class="bank-option" id="bank-axis" onclick="selectBank('Axis Bank', this)">
+          <div class="bank-logo">🟣</div>
+          <div class="bank-name">Axis Bank</div>
+          <div class="bank-type">Internet Banking</div>
+        </div>
+        <div class="bank-option" id="bank-idfc" onclick="selectBank('IDFC FIRST Bank', this)">
+          <div class="bank-logo">🔵</div>
+          <div class="bank-name">IDFC FIRST Bank</div>
+          <div class="bank-type">Net Banking</div>
+        </div>
+      </div>
+
+      <button class="modal-pay-btn" id="netbank-pay-btn" disabled onclick="proceedNetBank()">
+        Select a Bank to Continue
+      </button>
+      <div class="modal-secure">🛡 Redirecting to your bank's secure portal · 256-bit encrypted</div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ OTP MODAL ══ -->
+<div class="modal-overlay3" id="otp-modal">
+  <div class="otp-modal">
+    <div class="otp-modal-header">
+      <div class="otp-modal-icon">🔐</div>
+      <div>
+        <div class="otp-modal-name">2-Step Verification</div>
+        <div class="otp-modal-sub">Confirm your identity to complete order</div>
+      </div>
+    </div>
+    <div class="otp-modal-body">
+
+      <div class="otp-sent-msg">
+        <div class="otp-sent-icon">📱</div>
+        <div>An OTP has been sent to your registered mobile number. Please enter it below to confirm your order.</div>
+      </div>
+
+      <div class="otp-via-badge">
+        <span id="otp-via-icon">💳</span>
+        <span id="otp-via-name">Paying via Debit Card</span>
+      </div>
+
+      <label class="otp-input-label">Enter OTP</label>
+      <div class="otp-boxes">
+        <input class="otp-box" id="otp1" type="tel" maxlength="1" oninput="otpInput(this,1)" onkeydown="otpBack(event,1)" />
+        <input class="otp-box" id="otp2" type="tel" maxlength="1" oninput="otpInput(this,2)" onkeydown="otpBack(event,2)" />
+        <input class="otp-box" id="otp3" type="tel" maxlength="1" oninput="otpInput(this,3)" onkeydown="otpBack(event,3)" />
+        <input class="otp-box" id="otp4" type="tel" maxlength="1" oninput="otpInput(this,4)" onkeydown="otpBack(event,4)" />
+      </div>
+
+      <div class="otp-hint">Hint — your OTP is <span class="hint-otp">1 2 3 4</span></div>
+
+      <div class="otp-resend">Didn't receive it? <span onclick="resendOTP()">Resend OTP</span></div>
+
+      <button class="otp-verify-btn" id="otp-verify-btn" disabled onclick="verifyOTP()">
+        Verify & Complete Order
+      </button>
+      <div class="otp-secure">🔒 OTP valid for 10 minutes · Never share your OTP with anyone</div>
+
+    </div>
+  </div>
+</div>
 </body>
 </html>
